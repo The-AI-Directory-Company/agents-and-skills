@@ -498,3 +498,76 @@ jobs:
 
           print("All categories are valid and in use.")
           PYEOF
+
+      - name: Validate category sync across files
+        run: |
+          python3 << 'PYEOF'
+          import yaml, re, sys
+
+          # Load categories.yml slugs
+          with open("categories.yml") as f:
+              data = yaml.safe_load(f)
+          expected = {c["slug"] for c in data["categories"]}
+
+          errors = []
+
+          # --- Check CONTRIBUTING.md ---
+          with open("CONTRIBUTING.md") as f:
+              content = f.read()
+
+          # Find the metadata.categories row in the frontmatter rules table
+          contributing_cats = set()
+          for line in content.split("\n"):
+              if "metadata.categories" in line and "|" in line:
+                  # Extract backtick-quoted slugs from the line
+                  contributing_cats = set(re.findall(r"`([a-z][a-z0-9-]*)`", line))
+                  # Remove "metadata.categories" itself from matches
+                  contributing_cats.discard("metadata.categories")
+                  break
+
+          if not contributing_cats:
+              errors.append("CONTRIBUTING.md: could not find category list in the metadata.categories table row.")
+          else:
+              missing = expected - contributing_cats
+              extra = contributing_cats - expected
+              if missing:
+                  errors.append(f"CONTRIBUTING.md is missing categories: {', '.join(sorted(missing))}. Update the metadata.categories row to match categories.yml.")
+              if extra:
+                  errors.append(f"CONTRIBUTING.md has extra categories not in categories.yml: {', '.join(sorted(extra))}. Remove them or add them to categories.yml.")
+
+          # --- Check issue templates ---
+          for template_path in [
+              ".github/ISSUE_TEMPLATE/propose-agent.yml",
+              ".github/ISSUE_TEMPLATE/propose-skill.yml",
+          ]:
+              try:
+                  with open(template_path) as f:
+                      template = yaml.safe_load(f)
+              except FileNotFoundError:
+                  errors.append(f"{template_path}: file not found.")
+                  continue
+
+              # Find the dropdown with id "primary-category"
+              dropdown_options = None
+              for field in template.get("body", []):
+                  if field.get("id") == "primary-category":
+                      dropdown_options = set(field.get("attributes", {}).get("options", []))
+                      break
+
+              if dropdown_options is None:
+                  errors.append(f"{template_path}: could not find dropdown with id 'primary-category'.")
+              else:
+                  missing = expected - dropdown_options
+                  extra = dropdown_options - expected
+                  if missing:
+                      errors.append(f"{template_path} dropdown is missing categories: {', '.join(sorted(missing))}. Update the options list to match categories.yml.")
+                  if extra:
+                      errors.append(f"{template_path} dropdown has extra categories: {', '.join(sorted(extra))}. Remove them or add them to categories.yml.")
+
+          if errors:
+              for e in errors:
+                  print(f"::error::{e}")
+              sys.exit(1)
+
+          print("All files are in sync with categories.yml.")
+          PYEOF
