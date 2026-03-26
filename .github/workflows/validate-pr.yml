@@ -19,84 +19,173 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          npm install -g ajv-cli
-          if [ $? -ne 0 ]; then
-            echo "::error::Failed to install ajv-cli"
-            exit 1
-          fi
-
-      - name: Validate agent frontmatter
+      - name: Validate all frontmatter
         run: |
           EXIT_CODE=0
+
+          ALLOWED_CATEGORIES="engineering, product-management, project-management, design, data, business, communication, security, leadership, operations"
+
+          validate_frontmatter() {
+            local file="$1"
+            local schema_type="$2"  # "agent" or "skill"
+
+            # Extract frontmatter with Python
+            local result
+            result=$(python3 << PYEOF
+          import sys, yaml, json
+
+          content = open("$file").read()
+          if not content.startswith("---"):
+              print("ERROR: File must start with YAML frontmatter (--- fence). See CONTRIBUTING.md for the required format.", file=sys.stderr)
+              sys.exit(1)
+
+          try:
+              end = content.index("---", 3)
+          except ValueError:
+              print("ERROR: Frontmatter is missing the closing --- fence.", file=sys.stderr)
+              sys.exit(1)
+
+          try:
+              fm = yaml.safe_load(content[3:end])
+          except yaml.YAMLError as e:
+              print(f"ERROR: Invalid YAML in frontmatter: {e}", file=sys.stderr)
+              sys.exit(1)
+
+          if not isinstance(fm, dict):
+              print("ERROR: Frontmatter must be a YAML mapping (key: value pairs).", file=sys.stderr)
+              sys.exit(1)
+
+          errors = []
+
+          # Required top-level fields
+          if "name" not in fm:
+              errors.append("Missing required field: name")
+          elif not isinstance(fm["name"], str):
+              errors.append("Field 'name' must be a string")
+          elif len(fm["name"]) > 64:
+              errors.append(f"Field 'name' is {len(fm['name'])} chars (max 64)")
+          else:
+              import re
+              if not re.match(r"^[a-z][a-z0-9-]*$", fm["name"]):
+                  errors.append(f"Field 'name' must be lowercase with hyphens only (got: '{fm['name']}')")
+
+          if "description" not in fm:
+              errors.append("Missing required field: description")
+          elif not isinstance(fm["description"], str):
+              errors.append("Field 'description' must be a string")
+          elif len(fm["description"]) > 1024:
+              errors.append(f"Field 'description' is {len(fm['description'])} chars (max 1024)")
+          elif len(fm["description"]) == 0:
+              errors.append("Field 'description' cannot be empty")
+
+          if "metadata" not in fm:
+              errors.append("Missing required field: metadata")
+          elif not isinstance(fm["metadata"], dict):
+              errors.append("Field 'metadata' must be a YAML mapping")
+          else:
+              meta = fm["metadata"]
+
+              if "displayName" not in meta:
+                  errors.append("Missing required field: metadata.displayName")
+              elif not isinstance(meta["displayName"], str) or len(meta["displayName"]) == 0:
+                  errors.append("Field 'metadata.displayName' must be a non-empty string")
+
+              allowed_cats = {
+                  "engineering", "product-management", "project-management",
+                  "design", "data", "business", "communication",
+                  "security", "leadership", "operations"
+              }
+
+              if "categories" not in meta:
+                  errors.append("Missing required field: metadata.categories")
+              elif not isinstance(meta["categories"], list) or len(meta["categories"]) == 0:
+                  errors.append("Field 'metadata.categories' must be a non-empty list")
+              else:
+                  for cat in meta["categories"]:
+                      if cat not in allowed_cats:
+                          errors.append(f"Invalid category: '{cat}'. Allowed: {', '.join(sorted(allowed_cats))}")
+
+              # Check optional fields have correct types
+              if "tags" in meta:
+                  if not isinstance(meta["tags"], list):
+                      errors.append("Field 'metadata.tags' must be a list of strings")
+                  elif not all(isinstance(t, str) for t in meta["tags"]):
+                      errors.append("Field 'metadata.tags' must contain only strings")
+
+              for ref_field in ["worksWellWithAgents", "worksWellWithSkills"]:
+                  if ref_field in meta:
+                      if not isinstance(meta[ref_field], list):
+                          errors.append(f"Field 'metadata.{ref_field}' must be a list of slugs")
+                      elif not all(isinstance(s, str) for s in meta[ref_field]):
+                          errors.append(f"Field 'metadata.{ref_field}' must contain only strings")
+                      else:
+                          for slug in meta[ref_field]:
+                              if not re.match(r"^[a-z][a-z0-9-]*$", slug):
+                                  errors.append(f"Invalid slug in metadata.{ref_field}: '{slug}' (must be lowercase-hyphenated)")
+
+              allowed_meta_keys = {"displayName", "categories", "tags", "author", "refURL", "worksWellWithAgents", "worksWellWithSkills"}
+              extra_meta = set(meta.keys()) - allowed_meta_keys
+              if extra_meta:
+                  errors.append(f"Unknown fields in metadata: {', '.join(sorted(extra_meta))}. Allowed: {', '.join(sorted(allowed_meta_keys))}")
+
+          allowed_top_keys = {"name", "description", "metadata"}
+          extra_top = set(fm.keys()) - allowed_top_keys
+          if extra_top:
+              errors.append(f"Unknown top-level fields: {', '.join(sorted(extra_top))}. Allowed: name, description, metadata")
+
+          if errors:
+              for e in errors:
+                  print(f"ERROR: {e}", file=sys.stderr)
+              sys.exit(1)
+          else:
+              sys.exit(0)
+          PYEOF
+          )
+            local py_exit=$?
+
+            if [ $py_exit -ne 0 ]; then
+              # Python printed errors to stderr, capture them
+              echo "$result" | while IFS= read -r line; do
+                echo "::error file=$file::$line"
+              done
+              return 1
+            fi
+            return 0
+          }
+
+          echo "=== Validating agents ==="
           for file in agents/*.md; do
             basename_file=$(basename "$file")
             if [ "$basename_file" = "CLAUDE.md" ]; then
               continue
             fi
 
-            python3 -c "
-          import sys, yaml, json
-          content = open('$file').read()
-          if not content.startswith('---'):
-              print('ERROR: No frontmatter found', file=sys.stderr)
-              sys.exit(1)
-          end = content.index('---', 3)
-          fm = yaml.safe_load(content[3:end])
-          json.dump(fm, sys.stdout)
-          " > /tmp/frontmatter.json 2>/tmp/fm_err.txt
-
-            if [ $? -ne 0 ]; then
-              echo "::error file=$file::Failed to parse frontmatter: $(cat /tmp/fm_err.txt)"
-              EXIT_CODE=1
-              continue
-            fi
-
-            ajv validate -s .github/schemas/agent.schema.json -d /tmp/frontmatter.json --all-errors 2>/tmp/ajv_err.txt
-            if [ $? -ne 0 ]; then
-              echo "::error file=$file::Schema validation failed: $(cat /tmp/ajv_err.txt)"
+            if ! validate_frontmatter "$file" "agent"; then
               EXIT_CODE=1
             fi
           done
-          exit $EXIT_CODE
 
-      - name: Validate skill frontmatter
-        run: |
-          EXIT_CODE=0
+          echo ""
+          echo "=== Validating skills ==="
           for dir in skills/*/; do
             basename_dir=$(basename "$dir")
             file="${dir}SKILL.md"
 
             if [ ! -f "$file" ]; then
-              echo "::error::Skill folder '$basename_dir' is missing SKILL.md"
+              echo "::error::Skill folder '$basename_dir/' is missing its SKILL.md file. Every skill folder must contain a SKILL.md entrypoint."
               EXIT_CODE=1
               continue
             fi
 
-            python3 -c "
-          import sys, yaml, json
-          content = open('$file').read()
-          if not content.startswith('---'):
-              print('ERROR: No frontmatter found', file=sys.stderr)
-              sys.exit(1)
-          end = content.index('---', 3)
-          fm = yaml.safe_load(content[3:end])
-          json.dump(fm, sys.stdout)
-          " > /tmp/frontmatter.json 2>/tmp/fm_err.txt
-
-            if [ $? -ne 0 ]; then
-              echo "::error file=$file::Failed to parse frontmatter: $(cat /tmp/fm_err.txt)"
-              EXIT_CODE=1
-              continue
-            fi
-
-            ajv validate -s .github/schemas/skill.schema.json -d /tmp/frontmatter.json --all-errors 2>/tmp/ajv_err.txt
-            if [ $? -ne 0 ]; then
-              echo "::error file=$file::Schema validation failed: $(cat /tmp/ajv_err.txt)"
+            if ! validate_frontmatter "$file" "skill"; then
               EXIT_CODE=1
             fi
           done
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo ""
+            echo "All frontmatter is valid."
+          fi
           exit $EXIT_CODE
 
   validate-structure:
@@ -125,7 +214,7 @@ jobs:
           print(fm.get('name', ''))
           ")
             if [ "$slug" != "$name" ]; then
-              echo "::error file=$file::Filename '$slug.md' does not match name field '$name'"
+              echo "::error file=$file::Filename mismatch: file is named '$slug.md' but the name field says '$name'. Rename the file to '$name.md' or change the name field to '$slug'."
               EXIT_CODE=1
             fi
           done
@@ -148,7 +237,7 @@ jobs:
           print(fm.get('name', ''))
           ")
             if [ "$slug" != "$name" ]; then
-              echo "::error file=$file::Folder name '$slug' does not match name field '$name'"
+              echo "::error file=$file::Folder mismatch: folder is named '$slug/' but the name field says '$name'. Rename the folder to '$name/' or change the name field to '$slug'."
               EXIT_CODE=1
             fi
           done
@@ -163,7 +252,7 @@ jobs:
             fi
             case "$file" in
               *.md) ;;
-              *) echo "::error file=$file::Unexpected file type in agents/ — only .md files allowed"
+              *) echo "::error file=$file::Unexpected file in agents/: '$(basename "$file")'. The agents/ directory only accepts .md files. If this is a supporting file, it belongs in a skill folder under skills/ instead."
                  EXIT_CODE=1 ;;
             esac
           done
@@ -180,8 +269,6 @@ jobs:
 
       - name: Check cross-references point to existing entries
         run: |
-          EXIT_CODE=0
-
           # Build list of all valid agent slugs
           AGENT_SLUGS=""
           for f in agents/*.md; do
@@ -226,16 +313,15 @@ jobs:
               slug="${ref#*:}"
               if [ "$kind" = "agent" ]; then
                 echo "$AGENT_SLUGS" | tr ' ' '\n' | grep -qx "$slug" || {
-                  echo "::warning file=$file::worksWellWithAgents references '$slug' but no agents/$slug.md exists"
+                  echo "::warning file=$file::Cross-reference 'worksWellWithAgents: $slug' points to an agent that does not exist. Check the slug or remove it."
                 }
               elif [ "$kind" = "skill" ]; then
                 echo "$SKILL_SLUGS" | tr ' ' '\n' | grep -qx "$slug" || {
-                  echo "::warning file=$file::worksWellWithSkills references '$slug' but no skills/$slug/ exists"
+                  echo "::warning file=$file::Cross-reference 'worksWellWithSkills: $slug' points to a skill that does not exist. Check the slug or remove it."
                 }
               fi
             done
           done
-          exit $EXIT_CODE
 
   lint-markdown:
     name: Lint Markdown
