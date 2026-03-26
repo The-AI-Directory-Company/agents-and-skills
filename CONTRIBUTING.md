@@ -110,7 +110,7 @@ Step-by-step instructions.
 | `name` | Yes | Lowercase letters, digits, and hyphens only. Must start with a letter. Max 64 chars. Must match filename (agents) or folder name (skills). |
 | `description` | Yes | Max 1024 characters |
 | `metadata.displayName` | Yes | Human-readable name shown in the UI |
-| `metadata.categories` | Yes | At least one from: `engineering`, `product-management`, `project-management`, `design`, `data`, `business`, `communication`, `security`, `leadership`, `operations` |
+| `metadata.categories` | Yes | 1-2 categories from [`categories.yml`](categories.yml). Current values: `business`, `communication`, `data`, `design`, `engineering`, `leadership`, `operations`, `product-management`, `project-management`, `security` |
 | `metadata.tags` | No | Freeform search terms. Letters, digits, spaces, hyphens, dots, slashes, underscores. No duplicates. |
 | `metadata.worksWellWithAgents` | No | Slugs of related agents; should be bidirectional |
 | `metadata.worksWellWithSkills` | No | Slugs of related skills; should be bidirectional |
@@ -132,6 +132,29 @@ Submissions are evaluated on five dimensions:
 Use `metadata.worksWellWithAgents` and `metadata.worksWellWithSkills` to link related entries. Reference entries by their slug.
 
 Cross-references should be **bidirectional**: if agent A references skill B, skill B should also reference agent A. CI will **block the PR** if a cross-reference points to a slug that does not exist (e.g., a typo or a deleted entry). Bidirectionality is not enforced by CI — maintainers may add the reverse reference during review.
+
+## Proposing Category Changes
+
+Categories are defined in [`categories.yml`](categories.yml) at the repo root. To add or remove a category, submit a PR that updates all synced files. CI enforces that everything stays in sync.
+
+**Adding a category:**
+
+- [ ] Add the category to `categories.yml` with `slug`, `displayName`, and `description`
+- [ ] Update the `metadata.categories` row in the Frontmatter Rules table in this file
+- [ ] Add the category to the dropdown in `.github/ISSUE_TEMPLATE/propose-agent.yml`
+- [ ] Add the category to the dropdown in `.github/ISSUE_TEMPLATE/propose-skill.yml`
+- [ ] Include at least one agent or skill that uses the new category in the same PR
+- [ ] Explain in the PR description why existing categories are insufficient
+
+**Removing a category:**
+
+- [ ] Remove the category from `categories.yml`
+- [ ] Re-categorize all agents and skills that used it
+- [ ] Update the `metadata.categories` row in this file
+- [ ] Remove the category from both issue template dropdowns
+- [ ] Explain in the PR description why the category is being removed
+
+CI enforces that all 4 files stay in sync and that every category has at least one entry. Your PR will fail if any file is missed.
 
 ## Skill Supporting Files
 
