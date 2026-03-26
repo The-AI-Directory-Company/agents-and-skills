@@ -1,0 +1,22 @@
+{
+  // Disable rules that conflict with YAML frontmatter
+  "MD041": false,
+
+  // Disable rules that are too strict for contributed content
+  "MD013": false,
+  "MD033": false,
+  "MD024": false,
+
+  // Keep rules that catch real problems
+  "MD001": true,
+  "MD003": { "style": "atx" },
+  "MD009": true,
+  "MD010": true,
+  "MD012": true,
+  "MD018": true,
+  "MD019": true,
+  "MD022": true,
+  "MD023": true,
+  "MD025": true,
+  "MD047": true
+}

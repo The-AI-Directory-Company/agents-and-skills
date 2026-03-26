@@ -1,0 +1,220 @@
+name: Validate PR Content
+
+on:
+  pull_request:
+    paths:
+      - "agents/**"
+      - "skills/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-frontmatter:
+    name: Validate Frontmatter Schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install -g ajv-cli ajv-formats
+
+      - name: Validate agent frontmatter
+        run: |
+          EXIT_CODE=0
+          for file in agents/*.md; do
+            [ "$(basename "$file")" = "CLAUDE.md" ] && continue
+
+            python3 -c "
+          import sys, yaml, json
+          content = open('$file').read()
+          if not content.startswith('---'):
+              print('ERROR: No frontmatter found', file=sys.stderr)
+              sys.exit(1)
+          end = content.index('---', 3)
+          fm = yaml.safe_load(content[3:end])
+          json.dump(fm, sys.stdout)
+          " > /tmp/frontmatter.json 2>/tmp/fm_err.txt
+
+            if [ $? -ne 0 ]; then
+              echo "::error file=$file::Failed to parse frontmatter: $(cat /tmp/fm_err.txt)"
+              EXIT_CODE=1
+              continue
+            fi
+
+            ajv validate -s .github/schemas/agent.schema.json -d /tmp/frontmatter.json --all-errors 2>/tmp/ajv_err.txt
+            if [ $? -ne 0 ]; then
+              echo "::error file=$file::Schema validation failed: $(cat /tmp/ajv_err.txt)"
+              EXIT_CODE=1
+            fi
+          done
+          exit $EXIT_CODE
+
+      - name: Validate skill frontmatter
+        run: |
+          EXIT_CODE=0
+          for dir in skills/*/; do
+            [ "$(basename "$dir")" = "CLAUDE.md" ] && continue
+            file="${dir}SKILL.md"
+
+            if [ ! -f "$file" ]; then
+              echo "::error::Skill folder '$(basename "$dir")' is missing SKILL.md"
+              EXIT_CODE=1
+              continue
+            fi
+
+            python3 -c "
+          import sys, yaml, json
+          content = open('$file').read()
+          if not content.startswith('---'):
+              print('ERROR: No frontmatter found', file=sys.stderr)
+              sys.exit(1)
+          end = content.index('---', 3)
+          fm = yaml.safe_load(content[3:end])
+          json.dump(fm, sys.stdout)
+          " > /tmp/frontmatter.json 2>/tmp/fm_err.txt
+
+            if [ $? -ne 0 ]; then
+              echo "::error file=$file::Failed to parse frontmatter: $(cat /tmp/fm_err.txt)"
+              EXIT_CODE=1
+              continue
+            fi
+
+            ajv validate -s .github/schemas/skill.schema.json -d /tmp/frontmatter.json --all-errors 2>/tmp/ajv_err.txt
+            if [ $? -ne 0 ]; then
+              echo "::error file=$file::Schema validation failed: $(cat /tmp/ajv_err.txt)"
+              EXIT_CODE=1
+            fi
+          done
+          exit $EXIT_CODE
+
+  validate-structure:
+    name: Validate File Structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check agent filenames match name field
+        run: |
+          EXIT_CODE=0
+          for file in agents/*.md; do
+            [ "$(basename "$file")" = "CLAUDE.md" ] && continue
+            slug=$(basename "$file" .md)
+            name=$(python3 -c "
+          import yaml
+          content = open('$file').read()
+          end = content.index('---', 3)
+          fm = yaml.safe_load(content[3:end])
+          print(fm.get('name', ''))
+          ")
+            if [ "$slug" != "$name" ]; then
+              echo "::error file=$file::Filename '$slug.md' does not match name field '$name'"
+              EXIT_CODE=1
+            fi
+          done
+          exit $EXIT_CODE
+
+      - name: Check skill folder names match name field
+        run: |
+          EXIT_CODE=0
+          for dir in skills/*/; do
+            [ ! -f "${dir}SKILL.md" ] && continue
+            slug=$(basename "$dir")
+            file="${dir}SKILL.md"
+            name=$(python3 -c "
+          import yaml
+          content = open('$file').read()
+          end = content.index('---', 3)
+          fm = yaml.safe_load(content[3:end])
+          print(fm.get('name', ''))
+          ")
+            if [ "$slug" != "$name" ]; then
+              echo "::error file=$file::Folder name '$slug' does not match name field '$name'"
+              EXIT_CODE=1
+            fi
+          done
+          exit $EXIT_CODE
+
+      - name: Check no stray non-markdown files in agents/
+        run: |
+          EXIT_CODE=0
+          for file in agents/*; do
+            [ -d "$file" ] && continue
+            case "$file" in
+              *.md) ;;
+              *) echo "::error file=$file::Unexpected file type in agents/ — only .md files allowed"
+                 EXIT_CODE=1 ;;
+            esac
+          done
+          exit $EXIT_CODE
+
+  validate-cross-references:
+    name: Validate Cross-References
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check cross-references point to existing entries
+        run: |
+          EXIT_CODE=0
+
+          # Build list of all valid agent slugs
+          AGENT_SLUGS=""
+          for f in agents/*.md; do
+            [ "$(basename "$f")" = "CLAUDE.md" ] && continue
+            AGENT_SLUGS="$AGENT_SLUGS $(basename "$f" .md)"
+          done
+
+          # Build list of all valid skill slugs
+          SKILL_SLUGS=""
+          for d in skills/*/; do
+            [ -f "${d}SKILL.md" ] && SKILL_SLUGS="$SKILL_SLUGS $(basename "$d")"
+          done
+
+          # Check all worksWellWith references
+          for file in agents/*.md skills/*/SKILL.md; do
+            [ "$(basename "$file")" = "CLAUDE.md" ] && continue
+            [ ! -f "$file" ] && continue
+
+            python3 -c "
+          import yaml, sys
+          content = open('$file').read()
+          if not content.startswith('---'):
+              sys.exit(0)
+          end = content.index('---', 3)
+          fm = yaml.safe_load(content[3:end])
+          meta = fm.get('metadata', {})
+          for ref in meta.get('worksWellWithAgents', []):
+              print('agent:' + ref)
+          for ref in meta.get('worksWellWithSkills', []):
+              print('skill:' + ref)
+          " | while read -r ref; do
+              kind="${ref%%:*}"
+              slug="${ref#*:}"
+              if [ "$kind" = "agent" ]; then
+                echo "$AGENT_SLUGS" | tr ' ' '\n' | grep -qx "$slug" || {
+                  echo "::warning file=$file::worksWellWithAgents references '$slug' but no agents/$slug.md exists"
+                }
+              elif [ "$kind" = "skill" ]; then
+                echo "$SKILL_SLUGS" | tr ' ' '\n' | grep -qx "$slug" || {
+                  echo "::warning file=$file::worksWellWithSkills references '$slug' but no skills/$slug/ exists"
+                }
+              fi
+            done
+          done
+          exit $EXIT_CODE
+
+  lint-markdown:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: |
+            agents/*.md
+            skills/*/SKILL.md
+            skills/*/examples/*.md
+          config: .markdownlint.jsonc
