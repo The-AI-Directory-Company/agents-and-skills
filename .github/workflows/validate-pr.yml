@@ -48,7 +48,7 @@ jobs:
 
             # Extract and validate frontmatter with Python
             local result
-            result=$(python3 << PYEOF
+            result=$(python3 << PYEOF 2>&1
           import sys, yaml, json
 
           content = open("$file").read()
@@ -126,8 +126,9 @@ jobs:
                   dupes = [c for c in meta["categories"] if meta["categories"].count(c) > 1]
                   errors.append(f"Duplicate categories: {', '.join(set(dupes))}. Each category should appear only once.")
 
-                  if len(meta["categories"]) > 2:
-                      errors.append(f"Too many categories: found {len(meta['categories'])} (max 2). Pick the 1-2 categories where this entry fits best.")
+              # Check max 2 categories (independent of duplicates)
+              if isinstance(meta.get("categories"), list) and len(meta["categories"]) > 2:
+                  errors.append(f"Too many categories: found {len(meta['categories'])} (max 2). Pick the 1-2 categories where this entry fits best.")
 
               # Check optional fields have correct types
               if "tags" in meta:
