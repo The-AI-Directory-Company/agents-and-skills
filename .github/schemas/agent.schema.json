@@ -64,7 +64,6 @@
         },
         "refURL": {
           "type": "string",
-          "format": "uri",
           "description": "URL crediting the original source."
         },
         "worksWellWithAgents": {
