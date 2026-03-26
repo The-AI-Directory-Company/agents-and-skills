@@ -13,6 +13,9 @@ on:
     paths:
       - "agents/**"
       - "skills/**"
+      - "categories.yml"
+      - "CONTRIBUTING.md"
+      - ".github/ISSUE_TEMPLATE/**"
 
 permissions:
   contents: read
@@ -33,7 +36,7 @@ jobs:
       - name: Restore trusted CI config from main
         run: |
           git fetch origin main --depth=1
-          git checkout origin/main -- .github/ .markdownlint.jsonc
+          git checkout origin/main -- .github/ .markdownlint.jsonc categories.yml
 
       - name: Validate all frontmatter
         run: |
@@ -103,11 +106,11 @@ jobs:
               elif not isinstance(meta["displayName"], str) or len(meta["displayName"]) == 0:
                   errors.append("Field 'metadata.displayName' must be a non-empty string")
 
-              allowed_cats = {
-                  "engineering", "product-management", "project-management",
-                  "design", "data", "business", "communication",
-                  "security", "leadership", "operations"
-              }
+              # Read allowed categories from categories.yml
+              import yaml as _yaml
+              with open("categories.yml") as _f:
+                  _cats_data = _yaml.safe_load(_f)
+              allowed_cats = {c["slug"] for c in _cats_data.get("categories", [])}
 
               if "categories" not in meta:
                   errors.append("Missing required field: metadata.categories")
@@ -116,12 +119,15 @@ jobs:
               else:
                   for cat in meta["categories"]:
                       if cat not in allowed_cats:
-                          errors.append(f"Invalid category: '{cat}'. Allowed: {', '.join(sorted(allowed_cats))}")
+                          errors.append(f"Invalid category: '{cat}'. Not found in categories.yml. See categories.yml for the allowed list, or propose a new category by adding it in the same PR.")
 
               # Check for duplicate categories
               if isinstance(meta.get("categories"), list) and len(meta["categories"]) != len(set(meta["categories"])):
                   dupes = [c for c in meta["categories"] if meta["categories"].count(c) > 1]
                   errors.append(f"Duplicate categories: {', '.join(set(dupes))}. Each category should appear only once.")
+
+                  if len(meta["categories"]) > 2:
+                      errors.append(f"Too many categories: found {len(meta['categories'])} (max 2). Pick the 1-2 categories where this entry fits best.")
 
               # Check optional fields have correct types
               if "tags" in meta:
