@@ -1,0 +1,29 @@
+name: Welcome First-Time Contributors
+
+on:
+  pull_request_target:
+    types: [opened]
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-message: |
+            Welcome to the AI Directory, @${{ github.actor }}! Thanks for your first contribution.
+
+            A maintainer will review your submission. In the meantime, the CI checks above will validate your frontmatter and file structure automatically.
+
+            If any checks fail, click on the details to see what needs to be fixed. The [Contributing Guide](https://github.com/The-AI-Directory-Company/agents-and-skills/blob/main/CONTRIBUTING.md) has the full spec.
+          issue-message: |
+            Thanks for opening your first issue, @${{ github.actor }}! A maintainer will take a look shortly.
+
+            If you are proposing a new agent or skill and would like to contribute it yourself, feel free to open a PR following the [Contributing Guide](https://github.com/The-AI-Directory-Company/agents-and-skills/blob/main/CONTRIBUTING.md).

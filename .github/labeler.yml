@@ -1,0 +1,23 @@
+new-agent:
+  - changed-files:
+      - any-glob-to-any-file: "agents/*.md"
+      - all-globs-to-all-files: "!agents/CLAUDE.md"
+
+new-skill:
+  - changed-files:
+      - any-glob-to-any-file: "skills/**/SKILL.md"
+      - all-globs-to-all-files: "!skills/CLAUDE.md"
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file: ".github/**"
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "README.md"
+          - "CONTRIBUTING.md"
+          - "CODE_OF_CONDUCT.md"
+          - "SECURITY.md"
+          - "SUPPORT.md"
+          - "LICENSE"
