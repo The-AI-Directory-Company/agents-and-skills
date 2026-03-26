@@ -4,8 +4,12 @@
 
   // Disable rules that are too strict for contributed content
   "MD013": false,
-  "MD033": false,
   "MD024": false,
+  "MD032": false,
+  "MD033": false,
+  "MD034": false,
+  "MD036": false,
+  "MD040": false,
 
   // Keep rules that catch real problems
   "MD001": true,

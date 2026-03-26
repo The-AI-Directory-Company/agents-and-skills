@@ -13,17 +13,28 @@ jobs:
   validate-frontmatter:
     name: Validate Frontmatter Schema
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash {0}
     steps:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: npm install -g ajv-cli ajv-formats
+        run: |
+          npm install -g ajv-cli ajv-formats
+          if [ $? -ne 0 ]; then
+            echo "::error::Failed to install ajv-cli"
+            exit 1
+          fi
 
       - name: Validate agent frontmatter
         run: |
           EXIT_CODE=0
           for file in agents/*.md; do
-            [ "$(basename "$file")" = "CLAUDE.md" ] && continue
+            basename_file=$(basename "$file")
+            if [ "$basename_file" = "CLAUDE.md" ]; then
+              continue
+            fi
 
             python3 -c "
           import sys, yaml, json
@@ -42,7 +53,7 @@ jobs:
               continue
             fi
 
-            ajv validate -s .github/schemas/agent.schema.json -d /tmp/frontmatter.json --all-errors 2>/tmp/ajv_err.txt
+            ajv validate -s .github/schemas/agent.schema.json -d /tmp/frontmatter.json --all-errors -c ajv-formats 2>/tmp/ajv_err.txt
             if [ $? -ne 0 ]; then
               echo "::error file=$file::Schema validation failed: $(cat /tmp/ajv_err.txt)"
               EXIT_CODE=1
@@ -54,11 +65,11 @@ jobs:
         run: |
           EXIT_CODE=0
           for dir in skills/*/; do
-            [ "$(basename "$dir")" = "CLAUDE.md" ] && continue
+            basename_dir=$(basename "$dir")
             file="${dir}SKILL.md"
 
             if [ ! -f "$file" ]; then
-              echo "::error::Skill folder '$(basename "$dir")' is missing SKILL.md"
+              echo "::error::Skill folder '$basename_dir' is missing SKILL.md"
               EXIT_CODE=1
               continue
             fi
@@ -80,7 +91,7 @@ jobs:
               continue
             fi
 
-            ajv validate -s .github/schemas/skill.schema.json -d /tmp/frontmatter.json --all-errors 2>/tmp/ajv_err.txt
+            ajv validate -s .github/schemas/skill.schema.json -d /tmp/frontmatter.json --all-errors -c ajv-formats 2>/tmp/ajv_err.txt
             if [ $? -ne 0 ]; then
               echo "::error file=$file::Schema validation failed: $(cat /tmp/ajv_err.txt)"
               EXIT_CODE=1
@@ -91,6 +102,9 @@ jobs:
   validate-structure:
     name: Validate File Structure
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash {0}
     steps:
       - uses: actions/checkout@v4
 
@@ -98,7 +112,10 @@ jobs:
         run: |
           EXIT_CODE=0
           for file in agents/*.md; do
-            [ "$(basename "$file")" = "CLAUDE.md" ] && continue
+            basename_file=$(basename "$file")
+            if [ "$basename_file" = "CLAUDE.md" ]; then
+              continue
+            fi
             slug=$(basename "$file" .md)
             name=$(python3 -c "
           import yaml
@@ -118,9 +135,11 @@ jobs:
         run: |
           EXIT_CODE=0
           for dir in skills/*/; do
-            [ ! -f "${dir}SKILL.md" ] && continue
-            slug=$(basename "$dir")
             file="${dir}SKILL.md"
+            if [ ! -f "$file" ]; then
+              continue
+            fi
+            slug=$(basename "$dir")
             name=$(python3 -c "
           import yaml
           content = open('$file').read()
@@ -139,7 +158,9 @@ jobs:
         run: |
           EXIT_CODE=0
           for file in agents/*; do
-            [ -d "$file" ] && continue
+            if [ -d "$file" ]; then
+              continue
+            fi
             case "$file" in
               *.md) ;;
               *) echo "::error file=$file::Unexpected file type in agents/ — only .md files allowed"
@@ -151,6 +172,9 @@ jobs:
   validate-cross-references:
     name: Validate Cross-References
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash {0}
     steps:
       - uses: actions/checkout@v4
 
@@ -161,20 +185,29 @@ jobs:
           # Build list of all valid agent slugs
           AGENT_SLUGS=""
           for f in agents/*.md; do
-            [ "$(basename "$f")" = "CLAUDE.md" ] && continue
-            AGENT_SLUGS="$AGENT_SLUGS $(basename "$f" .md)"
+            basename_f=$(basename "$f")
+            if [ "$basename_f" != "CLAUDE.md" ]; then
+              AGENT_SLUGS="$AGENT_SLUGS $(basename "$f" .md)"
+            fi
           done
 
           # Build list of all valid skill slugs
           SKILL_SLUGS=""
           for d in skills/*/; do
-            [ -f "${d}SKILL.md" ] && SKILL_SLUGS="$SKILL_SLUGS $(basename "$d")"
+            if [ -f "${d}SKILL.md" ]; then
+              SKILL_SLUGS="$SKILL_SLUGS $(basename "$d")"
+            fi
           done
 
           # Check all worksWellWith references
           for file in agents/*.md skills/*/SKILL.md; do
-            [ "$(basename "$file")" = "CLAUDE.md" ] && continue
-            [ ! -f "$file" ] && continue
+            basename_file=$(basename "$file")
+            if [ "$basename_file" = "CLAUDE.md" ]; then
+              continue
+            fi
+            if [ ! -f "$file" ]; then
+              continue
+            fi
 
             python3 -c "
           import yaml, sys
