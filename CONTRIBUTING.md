@@ -7,7 +7,7 @@ Thank you for contributing to the AI Directory! This guide covers how to submit 
 - Read the authoring guide for your content type:
   - **Agents**: [`agents/CLAUDE.md`](agents/CLAUDE.md)
   - **Skills**: [`skills/CLAUDE.md`](skills/CLAUDE.md)
-- Browse existing entries at [theaidirectory.com](https://theaidirectory.com) to understand the quality bar
+- Browse existing entries at [ai-directory.company](https://ai-directory.company) to understand the quality bar
 
 ## PR Process
 

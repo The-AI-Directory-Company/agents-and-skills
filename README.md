@@ -1,18 +1,18 @@
 # Agents & Skills
 
-Community-maintained agent and skill definitions for [The AI Directory](https://theaidirectory.com).
+Community-maintained agent and skill definitions for [The AI Directory](https://ai-directory.company).
 
 ## What are Agents?
 
 Agents are AI persona definitions — markdown files that describe a specialized role, its expertise, decision frameworks, and behavioral patterns. Each agent file gives an AI assistant the context it needs to perform as a domain expert.
 
-Browse agents: [theaidirectory.com/agents](https://theaidirectory.com/agents)
+Browse agents: [ai-directory.company/agents](https://ai-directory.company/agents)
 
 ## What are Skills?
 
 Skills are reusable prompt-driven procedures — step-by-step instructions that guide an AI assistant through a specific task. Skills can include templates, checklists, and worked examples. They're designed to be installed into tools like Claude Code, Cursor, or any AI coding assistant.
 
-Browse skills: [theaidirectory.com/skills](https://theaidirectory.com/skills)
+Browse skills: [ai-directory.company/skills](https://ai-directory.company/skills)
 
 ## Repository Structure
 
