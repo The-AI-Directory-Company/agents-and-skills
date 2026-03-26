@@ -1,7 +1,15 @@
 name: Validate PR Content
 
+# SECURITY: Uses pull_request_target so the workflow definition, validation
+# scripts, schemas, and lint config always come from main — not from the PR.
+# Contributors cannot modify the CI rules that validate their own submissions.
+#
+# The PR's content (agents/skills files) is checked out explicitly via
+# github.event.pull_request.head.sha, then trusted config files are restored
+# from main to prevent tampering.
+
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - "agents/**"
       - "skills/**"
@@ -17,19 +25,25 @@ jobs:
       run:
         shell: bash {0}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Restore trusted CI config from main
+        run: |
+          git fetch origin main --depth=1
+          git checkout origin/main -- .github/ .markdownlint.jsonc
 
       - name: Validate all frontmatter
         run: |
           EXIT_CODE=0
 
-          ALLOWED_CATEGORIES="engineering, product-management, project-management, design, data, business, communication, security, leadership, operations"
-
           validate_frontmatter() {
             local file="$1"
             local schema_type="$2"  # "agent" or "skill"
 
-            # Extract frontmatter with Python
+            # Extract and validate frontmatter with Python
             local result
             result=$(python3 << PYEOF
           import sys, yaml, json
@@ -55,6 +69,7 @@ jobs:
               print("ERROR: Frontmatter must be a YAML mapping (key: value pairs).", file=sys.stderr)
               sys.exit(1)
 
+          import re
           errors = []
 
           # Required top-level fields
@@ -64,19 +79,17 @@ jobs:
               errors.append("Field 'name' must be a string")
           elif len(fm["name"]) > 64:
               errors.append(f"Field 'name' is {len(fm['name'])} chars (max 64)")
-          else:
-              import re
-              if not re.match(r"^[a-z][a-z0-9-]*$", fm["name"]):
-                  errors.append(f"Field 'name' must be lowercase with hyphens only (got: '{fm['name']}')")
+          elif not re.match(r"^[a-z][a-z0-9-]*$", fm["name"]):
+              errors.append(f"Field 'name' must be lowercase with hyphens only (got: '{fm['name']}')")
 
           if "description" not in fm:
               errors.append("Missing required field: description")
           elif not isinstance(fm["description"], str):
               errors.append("Field 'description' must be a string")
-          elif len(fm["description"]) > 1024:
-              errors.append(f"Field 'description' is {len(fm['description'])} chars (max 1024)")
           elif len(fm["description"]) == 0:
               errors.append("Field 'description' cannot be empty")
+          elif len(fm["description"]) > 1024:
+              errors.append(f"Field 'description' is {len(fm['description'])} chars (max 1024)")
 
           if "metadata" not in fm:
               errors.append("Missing required field: metadata")
@@ -144,7 +157,6 @@ jobs:
             local py_exit=$?
 
             if [ $py_exit -ne 0 ]; then
-              # Python printed errors to stderr, capture them
               echo "$result" | while IFS= read -r line; do
                 echo "::error file=$file::$line"
               done
@@ -195,7 +207,10 @@ jobs:
       run:
         shell: bash {0}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Check agent filenames match name field
         run: |
@@ -265,7 +280,10 @@ jobs:
       run:
         shell: bash {0}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Check cross-references point to existing entries
         run: |
@@ -327,7 +345,15 @@ jobs:
     name: Lint Markdown
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Restore trusted lint config from main
+        run: |
+          git fetch origin main --depth=1
+          git checkout origin/main -- .markdownlint.jsonc
 
       - name: Run markdownlint
         uses: DavidAnson/markdownlint-cli2-action@v19
