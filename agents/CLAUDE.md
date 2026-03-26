@@ -42,7 +42,7 @@ The file has two parts:
 
 #### `name` (string, required)
 
-Spec-compliant identifier. Lowercase, hyphens only. Max 64 chars. **Must match the filename** (without `.md`).
+Spec-compliant identifier. Lowercase letters, digits, and hyphens only (must start with a letter). Max 64 chars. **Must match the filename** (without `.md`).
 
 ```yaml
 name: code-reviewer
@@ -72,7 +72,7 @@ Freeform tags for search/discovery.
 
 #### `metadata.author` (string, optional)
 
-Convex `_id` of the member who proposed this agent.
+Convex `_id` of the member who proposed this agent. **Leave this field empty when submitting.** Maintainers assign this after your first merged PR.
 
 #### `metadata.refURL` (string, optional)
 
@@ -80,11 +80,11 @@ URL crediting the original source.
 
 #### `metadata.worksWellWithAgents` (string array, optional)
 
-Slugs of complementary agents in `content/agents/`.
+Slugs of complementary agents in `agents/`.
 
 #### `metadata.worksWellWithSkills` (string array, optional)
 
-Slugs of complementary skills in `content/skills/`.
+Slugs of complementary skills in `skills/`.
 
 ---
 
@@ -135,9 +135,11 @@ When reviewing code, you work through these layers in order:
 The filename **must** match the `name` field (per the Agent Skills spec):
 
 ```
-content/agents/vp-product.md      → name: vp-product
-content/agents/code-reviewer.md   → name: code-reviewer
+agents/vp-product.md      → name: vp-product
+agents/code-reviewer.md   → name: code-reviewer
 ```
+
+All paths are relative to the repository root.
 
 ## Compatibility
 

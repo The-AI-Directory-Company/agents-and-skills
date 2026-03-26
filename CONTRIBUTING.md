@@ -107,11 +107,11 @@ Step-by-step instructions.
 
 | Field | Required | Rules |
 |---|---|---|
-| `name` | Yes | Lowercase hyphens only, max 64 chars, must match filename (agents) or folder name (skills) |
+| `name` | Yes | Lowercase letters, digits, and hyphens only. Must start with a letter. Max 64 chars. Must match filename (agents) or folder name (skills). |
 | `description` | Yes | Max 1024 characters |
 | `metadata.displayName` | Yes | Human-readable name shown in the UI |
 | `metadata.categories` | Yes | At least one from: `engineering`, `product-management`, `project-management`, `design`, `data`, `business`, `communication`, `security`, `leadership`, `operations` |
-| `metadata.tags` | No | Freeform search terms to aid discoverability |
+| `metadata.tags` | No | Freeform search terms. Letters, digits, spaces, hyphens, dots, slashes, underscores. No duplicates. |
 | `metadata.worksWellWithAgents` | No | Slugs of related agents; should be bidirectional |
 | `metadata.worksWellWithSkills` | No | Slugs of related skills; should be bidirectional |
 | `metadata.author` | No | User ID assigned by maintainers after your first merged PR |
@@ -124,14 +124,14 @@ Submissions are evaluated on five dimensions:
 - **Specificity**: Agents must encode real domain expertise and mental models, not generic instructions anyone could write. Skills must provide concrete, actionable steps — not vague guidance. If the content could apply to any domain, it is too generic.
 - **Completeness**: All required frontmatter fields must be present. The body must be comprehensive enough to be useful without any additional context. Stubs and placeholders will be rejected.
 - **Accuracy**: Domain-specific claims must be correct. Framework and tool references must be real. If you cite a methodology or process, it should be accurate to how practitioners actually use it.
-- **Formatting**: Valid markdown throughout. Consistent frontmatter structure. No broken internal references. Headers should follow a logical hierarchy.
+- **Formatting**: Valid markdown throughout. Consistent frontmatter structure. No broken internal references. Headers should follow a logical hierarchy. Each file must have at most one `#` heading — use `##` and below for all sections.
 - **No marketing copy**: Describe what the agent or skill does, not how amazing it is. Avoid superlatives, hype, and promotional language.
 
 ## Cross-References
 
 Use `metadata.worksWellWithAgents` and `metadata.worksWellWithSkills` to link related entries. Reference entries by their slug.
 
-Cross-references should be **bidirectional**: if agent A references skill B, skill B should also reference agent A. CI will warn on orphaned references (where the target does not link back) but will not block the PR. Maintainers may add the reverse reference during review.
+Cross-references should be **bidirectional**: if agent A references skill B, skill B should also reference agent A. CI will **block the PR** if a cross-reference points to a slug that does not exist (e.g., a typo or a deleted entry). Bidirectionality is not enforced by CI — maintainers may add the reverse reference during review.
 
 ## Skill Supporting Files
 

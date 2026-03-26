@@ -118,12 +118,25 @@ jobs:
                       if cat not in allowed_cats:
                           errors.append(f"Invalid category: '{cat}'. Allowed: {', '.join(sorted(allowed_cats))}")
 
+              # Check for duplicate categories
+              if isinstance(meta.get("categories"), list) and len(meta["categories"]) != len(set(meta["categories"])):
+                  dupes = [c for c in meta["categories"] if meta["categories"].count(c) > 1]
+                  errors.append(f"Duplicate categories: {', '.join(set(dupes))}. Each category should appear only once.")
+
               # Check optional fields have correct types
               if "tags" in meta:
                   if not isinstance(meta["tags"], list):
                       errors.append("Field 'metadata.tags' must be a list of strings")
                   elif not all(isinstance(t, str) for t in meta["tags"]):
                       errors.append("Field 'metadata.tags' must contain only strings")
+                  else:
+                      tag_pattern = re.compile(r"^[a-zA-Z0-9][a-zA-Z0-9 ./_-]*$")
+                      for tag in meta["tags"]:
+                          if not tag_pattern.match(tag):
+                              errors.append(f"Invalid tag: '{tag}'. Tags must start with a letter or digit and contain only letters, digits, spaces, hyphens, dots, slashes, or underscores.")
+                      if len(meta["tags"]) != len(set(meta["tags"])):
+                          dupes = [t for t in meta["tags"] if meta["tags"].count(t) > 1]
+                          errors.append(f"Duplicate tags: {', '.join(set(dupes))}. Each tag should appear only once.")
 
               for ref_field in ["worksWellWithAgents", "worksWellWithSkills"]:
                   if ref_field in meta:
@@ -135,6 +148,9 @@ jobs:
                           for slug in meta[ref_field]:
                               if not re.match(r"^[a-z][a-z0-9-]*$", slug):
                                   errors.append(f"Invalid slug in metadata.{ref_field}: '{slug}' (must be lowercase-hyphenated)")
+                          if len(meta[ref_field]) != len(set(meta[ref_field])):
+                              dupes = [s for s in meta[ref_field] if meta[ref_field].count(s) > 1]
+                              errors.append(f"Duplicate entries in metadata.{ref_field}: {', '.join(set(dupes))}")
 
               allowed_meta_keys = {"displayName", "categories", "tags", "author", "refURL", "worksWellWithAgents", "worksWellWithSkills"}
               extra_meta = set(meta.keys()) - allowed_meta_keys
@@ -287,6 +303,8 @@ jobs:
 
       - name: Check cross-references point to existing entries
         run: |
+          EXIT_CODE=0
+
           # Build list of all valid agent slugs
           AGENT_SLUGS=""
           for f in agents/*.md; do
@@ -331,15 +349,18 @@ jobs:
               slug="${ref#*:}"
               if [ "$kind" = "agent" ]; then
                 echo "$AGENT_SLUGS" | tr ' ' '\n' | grep -qx "$slug" || {
-                  echo "::warning file=$file::Cross-reference 'worksWellWithAgents: $slug' points to an agent that does not exist. Check the slug or remove it."
+                  echo "::error file=$file::Cross-reference 'worksWellWithAgents: $slug' points to an agent that does not exist (no agents/$slug.md found). Check the slug for typos or remove it."
+                  EXIT_CODE=1
                 }
               elif [ "$kind" = "skill" ]; then
                 echo "$SKILL_SLUGS" | tr ' ' '\n' | grep -qx "$slug" || {
-                  echo "::warning file=$file::Cross-reference 'worksWellWithSkills: $slug' points to a skill that does not exist. Check the slug or remove it."
+                  echo "::error file=$file::Cross-reference 'worksWellWithSkills: $slug' points to a skill that does not exist (no skills/$slug/ folder found). Check the slug for typos or remove it."
+                  EXIT_CODE=1
                 }
               fi
             done
           done
+          exit $EXIT_CODE
 
   lint-markdown:
     name: Lint Markdown

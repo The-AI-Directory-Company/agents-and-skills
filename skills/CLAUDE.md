@@ -29,10 +29,10 @@ Think of it as a detailed how-to guide written for an AI. A `prd-writing/SKILL.m
 
 ## Folder Structure
 
-Each skill lives in its own folder under `content/skills/`:
+Each skill lives in its own folder under `skills/`:
 
 ```
-content/skills/
+skills/
   <skill-name>/
     SKILL.md              ← required entrypoint (frontmatter + body)
     references/           ← optional reference material
@@ -72,7 +72,7 @@ A minimal skill only needs `SKILL.md`. Add supporting files when they make the s
 
 #### `name` (string, required)
 
-Spec-compliant identifier. Lowercase, hyphens only. Max 64 chars. **Must match the folder name**.
+Spec-compliant identifier. Lowercase letters, digits, and hyphens only (must start with a letter). Max 64 chars. **Must match the folder name**.
 
 ```yaml
 name: prd-writing
@@ -102,7 +102,7 @@ Freeform tags for search/discovery.
 
 #### `metadata.author` (string, optional)
 
-Convex `_id` of the member who proposed this skill.
+Convex `_id` of the member who proposed this skill. **Leave this field empty when submitting.** Maintainers assign this after your first merged PR.
 
 #### `metadata.refURL` (string, optional)
 
@@ -110,18 +110,18 @@ URL crediting the original source.
 
 #### `metadata.worksWellWithAgents` (string array, optional)
 
-Slugs of complementary agents in `content/agents/`.
+Slugs of complementary agents in `agents/`.
 
 #### `metadata.worksWellWithSkills` (string array, optional)
 
-Slugs of complementary skills in `content/skills/`.
+Slugs of complementary skills in `skills/`.
 
 ---
 
 ## Full Example
 
 ```
-content/skills/
+skills/
   prd-writing/
     SKILL.md
     examples/
@@ -130,6 +130,8 @@ content/skills/
     references/
       prd-checklist.md
 ```
+
+All paths are relative to the repository root.
 
 `prd-writing/SKILL.md`:
 
@@ -178,8 +180,8 @@ Define 2-4 measurable outcomes...
 The folder name **must** match the `name` field (per the Agent Skills spec):
 
 ```
-content/skills/prd-writing/SKILL.md         → name: prd-writing
-content/skills/user-story-mapping/SKILL.md  → name: user-story-mapping
+skills/prd-writing/SKILL.md         → name: prd-writing
+skills/user-story-mapping/SKILL.md  → name: user-story-mapping
 ```
 
 ## Compatibility
