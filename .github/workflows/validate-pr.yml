@@ -390,3 +390,111 @@ jobs:
             skills/*/SKILL.md
             skills/*/examples/*.md
           config: .markdownlint.jsonc
+
+  validate-categories:
+    name: Validate Categories
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash {0}
+    steps:
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Restore trusted CI config from main
+        run: |
+          git fetch origin main --depth=1
+          git checkout origin/main -- .github/ .markdownlint.jsonc categories.yml
+
+      - name: Validate categories.yml structure and usage
+        run: |
+          python3 << 'PYEOF'
+          import yaml, re, sys, os, glob
+
+          errors = []
+
+          # --- Part 1: Validate categories.yml structure ---
+          try:
+              with open("categories.yml") as f:
+                  data = yaml.safe_load(f)
+          except FileNotFoundError:
+              print("::error file=categories.yml::File not found. The categories.yml file must exist at the repo root.")
+              sys.exit(1)
+          except yaml.YAMLError as e:
+              print(f"::error file=categories.yml::Invalid YAML: {e}")
+              sys.exit(1)
+
+          if not isinstance(data, dict) or "categories" not in data:
+              print("::error file=categories.yml::File must contain a top-level 'categories' key with a list of category entries.")
+              sys.exit(1)
+
+          cats = data["categories"]
+          if not isinstance(cats, list) or len(cats) == 0:
+              print("::error file=categories.yml::The 'categories' list must contain at least one entry.")
+              sys.exit(1)
+
+          slug_pattern = re.compile(r"^[a-z][a-z0-9-]*$")
+          seen_slugs = set()
+
+          for i, cat in enumerate(cats):
+              prefix = f"categories.yml entry {i + 1}"
+              if not isinstance(cat, dict):
+                  errors.append(f"{prefix}: must be a mapping with slug, displayName, and description.")
+                  continue
+
+              for field in ["slug", "displayName", "description"]:
+                  if field not in cat:
+                      errors.append(f"{prefix}: missing required field '{field}'.")
+                  elif not isinstance(cat[field], str) or len(cat[field].strip()) == 0:
+                      errors.append(f"{prefix}: field '{field}' must be a non-empty string.")
+
+              if "slug" in cat and isinstance(cat["slug"], str):
+                  slug = cat["slug"]
+                  if not slug_pattern.match(slug):
+                      errors.append(f"{prefix}: slug '{slug}' must be lowercase with hyphens only (pattern: a-z, 0-9, hyphens, starts with a letter).")
+                  if slug in seen_slugs:
+                      errors.append(f"{prefix}: duplicate slug '{slug}'.")
+                  seen_slugs.add(slug)
+
+          if errors:
+              for e in errors:
+                  print(f"::error file=categories.yml::{e}")
+              sys.exit(1)
+
+          # --- Part 2: Check every category is used by at least one entry ---
+          used_cats = set()
+
+          # Scan agents
+          for path in sorted(glob.glob("agents/*.md")):
+              if os.path.basename(path) == "CLAUDE.md":
+                  continue
+              try:
+                  content = open(path).read()
+                  end = content.index("---", 3)
+                  fm = yaml.safe_load(content[3:end])
+                  for c in fm.get("metadata", {}).get("categories", []):
+                      used_cats.add(c)
+              except Exception:
+                  pass  # frontmatter errors are caught by the other job
+
+          # Scan skills
+          for path in sorted(glob.glob("skills/*/SKILL.md")):
+              try:
+                  content = open(path).read()
+                  end = content.index("---", 3)
+                  fm = yaml.safe_load(content[3:end])
+                  for c in fm.get("metadata", {}).get("categories", []):
+                      used_cats.add(c)
+              except Exception:
+                  pass
+
+          orphaned = seen_slugs - used_cats
+          if orphaned:
+              for slug in sorted(orphaned):
+                  print(f"::error file=categories.yml::Category '{slug}' is defined in categories.yml but not used by any agent or skill. Either add an entry that uses it or remove it from categories.yml.")
+              sys.exit(1)
+
+          print("All categories are valid and in use.")
+          PYEOF
