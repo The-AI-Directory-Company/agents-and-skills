@@ -62,9 +62,9 @@ description: An AI code reviewer that catches bugs, security issues, and style v
 
 Human-readable name for the UI.
 
-#### `metadata.categories` (string array, min 1 required)
+#### `metadata.categories` (string array, 1-2 required)
 
-Filterable categories. An agent can belong to multiple.
+Filterable categories. See [`categories.yml`](../categories.yml) for the allowed list. Max 2 per entry.
 
 #### `metadata.tags` (string array)
 
