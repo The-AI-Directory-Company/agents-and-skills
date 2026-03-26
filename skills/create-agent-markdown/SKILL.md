@@ -3,7 +3,7 @@ name: create-agent-markdown
 description: Create high-quality AI agent definition files that follow the Agent Skills specification. Produces behavioral prompts with real mental models, decision frameworks, and domain expertise — not generic filler.
 metadata:
   displayName: "Create Agent Markdown"
-  categories: ["content-creation", "engineering"]
+  categories: ["communication", "engineering"]
   tags: ["agents", "agent-skills", "behavioral-prompts", "system-prompts", "personas"]
   worksWellWithAgents: ["technical-pm", "vp-product"]
   worksWellWithSkills: ["prd-writing"]
