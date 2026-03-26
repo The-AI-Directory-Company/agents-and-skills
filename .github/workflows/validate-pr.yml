@@ -1,0 +1,574 @@
+name: Validate PR Content
+
+# SECURITY: Uses pull_request_target so the workflow definition, validation
+# scripts, schemas, and lint config always come from main — not from the PR.
+# Contributors cannot modify the CI rules that validate their own submissions.
+#
+# The PR's content (agents/skills files) is checked out explicitly via
+# github.event.pull_request.head.sha, then trusted config files are restored
+# from main to prevent tampering.
+
+on:
+  pull_request_target:
+    paths:
+      - "agents/**"
+      - "skills/**"
+      - "categories.yml"
+      - "CONTRIBUTING.md"
+      - ".github/ISSUE_TEMPLATE/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-frontmatter:
+    name: Validate Frontmatter Schema
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash {0}
+    steps:
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Restore trusted CI config from main
+        run: |
+          git fetch origin main --depth=1
+          git checkout origin/main -- .github/ .markdownlint.jsonc categories.yml
+
+      - name: Validate all frontmatter
+        run: |
+          EXIT_CODE=0
+
+          validate_frontmatter() {
+            local file="$1"
+            local schema_type="$2"  # "agent" or "skill"
+
+            # Extract and validate frontmatter with Python
+            local result
+            result=$(python3 << PYEOF 2>&1
+          import sys, yaml, json
+
+          content = open("$file").read()
+          if not content.startswith("---"):
+              print("ERROR: File must start with YAML frontmatter (--- fence). See CONTRIBUTING.md for the required format.", file=sys.stderr)
+              sys.exit(1)
+
+          try:
+              end = content.index("---", 3)
+          except ValueError:
+              print("ERROR: Frontmatter is missing the closing --- fence.", file=sys.stderr)
+              sys.exit(1)
+
+          try:
+              fm = yaml.safe_load(content[3:end])
+          except yaml.YAMLError as e:
+              print(f"ERROR: Invalid YAML in frontmatter: {e}", file=sys.stderr)
+              sys.exit(1)
+
+          if not isinstance(fm, dict):
+              print("ERROR: Frontmatter must be a YAML mapping (key: value pairs).", file=sys.stderr)
+              sys.exit(1)
+
+          import re
+          errors = []
+
+          # Required top-level fields
+          if "name" not in fm:
+              errors.append("Missing required field: name")
+          elif not isinstance(fm["name"], str):
+              errors.append("Field 'name' must be a string")
+          elif len(fm["name"]) > 64:
+              errors.append(f"Field 'name' is {len(fm['name'])} chars (max 64)")
+          elif not re.match(r"^[a-z][a-z0-9-]*$", fm["name"]):
+              errors.append(f"Field 'name' must be lowercase with hyphens only (got: '{fm['name']}')")
+
+          if "description" not in fm:
+              errors.append("Missing required field: description")
+          elif not isinstance(fm["description"], str):
+              errors.append("Field 'description' must be a string")
+          elif len(fm["description"]) == 0:
+              errors.append("Field 'description' cannot be empty")
+          elif len(fm["description"]) > 1024:
+              errors.append(f"Field 'description' is {len(fm['description'])} chars (max 1024)")
+
+          if "metadata" not in fm:
+              errors.append("Missing required field: metadata")
+          elif not isinstance(fm["metadata"], dict):
+              errors.append("Field 'metadata' must be a YAML mapping")
+          else:
+              meta = fm["metadata"]
+
+              if "displayName" not in meta:
+                  errors.append("Missing required field: metadata.displayName")
+              elif not isinstance(meta["displayName"], str) or len(meta["displayName"]) == 0:
+                  errors.append("Field 'metadata.displayName' must be a non-empty string")
+
+              # Read allowed categories from categories.yml
+              import yaml as _yaml
+              with open("categories.yml") as _f:
+                  _cats_data = _yaml.safe_load(_f)
+              allowed_cats = {c["slug"] for c in _cats_data.get("categories", [])}
+
+              if "categories" not in meta:
+                  errors.append("Missing required field: metadata.categories")
+              elif not isinstance(meta["categories"], list) or len(meta["categories"]) == 0:
+                  errors.append("Field 'metadata.categories' must be a non-empty list")
+              else:
+                  for cat in meta["categories"]:
+                      if cat not in allowed_cats:
+                          errors.append(f"Invalid category: '{cat}'. Not found in categories.yml. See categories.yml for the allowed list, or propose a new category by adding it in the same PR.")
+
+              # Check for duplicate categories
+              if isinstance(meta.get("categories"), list) and len(meta["categories"]) != len(set(meta["categories"])):
+                  dupes = [c for c in meta["categories"] if meta["categories"].count(c) > 1]
+                  errors.append(f"Duplicate categories: {', '.join(set(dupes))}. Each category should appear only once.")
+
+              # Check max 2 categories (independent of duplicates)
+              if isinstance(meta.get("categories"), list) and len(meta["categories"]) > 2:
+                  errors.append(f"Too many categories: found {len(meta['categories'])} (max 2). Pick the 1-2 categories where this entry fits best.")
+
+              # Check optional fields have correct types
+              if "tags" in meta:
+                  if not isinstance(meta["tags"], list):
+                      errors.append("Field 'metadata.tags' must be a list of strings")
+                  elif not all(isinstance(t, str) for t in meta["tags"]):
+                      errors.append("Field 'metadata.tags' must contain only strings")
+                  else:
+                      tag_pattern = re.compile(r"^[a-zA-Z0-9][a-zA-Z0-9 ./_-]*$")
+                      for tag in meta["tags"]:
+                          if not tag_pattern.match(tag):
+                              errors.append(f"Invalid tag: '{tag}'. Tags must start with a letter or digit and contain only letters, digits, spaces, hyphens, dots, slashes, or underscores.")
+                      if len(meta["tags"]) != len(set(meta["tags"])):
+                          dupes = [t for t in meta["tags"] if meta["tags"].count(t) > 1]
+                          errors.append(f"Duplicate tags: {', '.join(set(dupes))}. Each tag should appear only once.")
+
+              for ref_field in ["worksWellWithAgents", "worksWellWithSkills"]:
+                  if ref_field in meta:
+                      if not isinstance(meta[ref_field], list):
+                          errors.append(f"Field 'metadata.{ref_field}' must be a list of slugs")
+                      elif not all(isinstance(s, str) for s in meta[ref_field]):
+                          errors.append(f"Field 'metadata.{ref_field}' must contain only strings")
+                      else:
+                          for slug in meta[ref_field]:
+                              if not re.match(r"^[a-z][a-z0-9-]*$", slug):
+                                  errors.append(f"Invalid slug in metadata.{ref_field}: '{slug}' (must be lowercase-hyphenated)")
+                          if len(meta[ref_field]) != len(set(meta[ref_field])):
+                              dupes = [s for s in meta[ref_field] if meta[ref_field].count(s) > 1]
+                              errors.append(f"Duplicate entries in metadata.{ref_field}: {', '.join(set(dupes))}")
+
+              allowed_meta_keys = {"displayName", "categories", "tags", "author", "refURL", "worksWellWithAgents", "worksWellWithSkills"}
+              extra_meta = set(meta.keys()) - allowed_meta_keys
+              if extra_meta:
+                  errors.append(f"Unknown fields in metadata: {', '.join(sorted(extra_meta))}. Allowed: {', '.join(sorted(allowed_meta_keys))}")
+
+          allowed_top_keys = {"name", "description", "metadata"}
+          extra_top = set(fm.keys()) - allowed_top_keys
+          if extra_top:
+              errors.append(f"Unknown top-level fields: {', '.join(sorted(extra_top))}. Allowed: name, description, metadata")
+
+          if errors:
+              for e in errors:
+                  print(f"ERROR: {e}", file=sys.stderr)
+              sys.exit(1)
+          else:
+              sys.exit(0)
+          PYEOF
+          )
+            local py_exit=$?
+
+            if [ $py_exit -ne 0 ]; then
+              echo "$result" | while IFS= read -r line; do
+                echo "::error file=$file::$line"
+              done
+              return 1
+            fi
+            return 0
+          }
+
+          echo "=== Validating agents ==="
+          for file in agents/*.md; do
+            basename_file=$(basename "$file")
+            if [ "$basename_file" = "CLAUDE.md" ]; then
+              continue
+            fi
+
+            if ! validate_frontmatter "$file" "agent"; then
+              EXIT_CODE=1
+            fi
+          done
+
+          echo ""
+          echo "=== Validating skills ==="
+          for dir in skills/*/; do
+            basename_dir=$(basename "$dir")
+            file="${dir}SKILL.md"
+
+            if [ ! -f "$file" ]; then
+              echo "::error::Skill folder '$basename_dir/' is missing its SKILL.md file. Every skill folder must contain a SKILL.md entrypoint."
+              EXIT_CODE=1
+              continue
+            fi
+
+            if ! validate_frontmatter "$file" "skill"; then
+              EXIT_CODE=1
+            fi
+          done
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo ""
+            echo "All frontmatter is valid."
+          fi
+          exit $EXIT_CODE
+
+  validate-structure:
+    name: Validate File Structure
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash {0}
+    steps:
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Check agent filenames match name field
+        run: |
+          EXIT_CODE=0
+          for file in agents/*.md; do
+            basename_file=$(basename "$file")
+            if [ "$basename_file" = "CLAUDE.md" ]; then
+              continue
+            fi
+            slug=$(basename "$file" .md)
+            name=$(python3 -c "
+          import yaml
+          content = open('$file').read()
+          end = content.index('---', 3)
+          fm = yaml.safe_load(content[3:end])
+          print(fm.get('name', ''))
+          ")
+            if [ "$slug" != "$name" ]; then
+              echo "::error file=$file::Filename mismatch: file is named '$slug.md' but the name field says '$name'. Rename the file to '$name.md' or change the name field to '$slug'."
+              EXIT_CODE=1
+            fi
+          done
+          exit $EXIT_CODE
+
+      - name: Check skill folder names match name field
+        run: |
+          EXIT_CODE=0
+          for dir in skills/*/; do
+            file="${dir}SKILL.md"
+            if [ ! -f "$file" ]; then
+              continue
+            fi
+            slug=$(basename "$dir")
+            name=$(python3 -c "
+          import yaml
+          content = open('$file').read()
+          end = content.index('---', 3)
+          fm = yaml.safe_load(content[3:end])
+          print(fm.get('name', ''))
+          ")
+            if [ "$slug" != "$name" ]; then
+              echo "::error file=$file::Folder mismatch: folder is named '$slug/' but the name field says '$name'. Rename the folder to '$name/' or change the name field to '$slug'."
+              EXIT_CODE=1
+            fi
+          done
+          exit $EXIT_CODE
+
+      - name: Check no stray non-markdown files in agents/
+        run: |
+          EXIT_CODE=0
+          for file in agents/*; do
+            if [ -d "$file" ]; then
+              continue
+            fi
+            case "$file" in
+              *.md) ;;
+              *) echo "::error file=$file::Unexpected file in agents/: '$(basename "$file")'. The agents/ directory only accepts .md files. If this is a supporting file, it belongs in a skill folder under skills/ instead."
+                 EXIT_CODE=1 ;;
+            esac
+          done
+          exit $EXIT_CODE
+
+  validate-cross-references:
+    name: Validate Cross-References
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash {0}
+    steps:
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Check cross-references point to existing entries
+        run: |
+          EXIT_CODE=0
+
+          # Build list of all valid agent slugs
+          AGENT_SLUGS=""
+          for f in agents/*.md; do
+            basename_f=$(basename "$f")
+            if [ "$basename_f" != "CLAUDE.md" ]; then
+              AGENT_SLUGS="$AGENT_SLUGS $(basename "$f" .md)"
+            fi
+          done
+
+          # Build list of all valid skill slugs
+          SKILL_SLUGS=""
+          for d in skills/*/; do
+            if [ -f "${d}SKILL.md" ]; then
+              SKILL_SLUGS="$SKILL_SLUGS $(basename "$d")"
+            fi
+          done
+
+          # Check all worksWellWith references
+          for file in agents/*.md skills/*/SKILL.md; do
+            basename_file=$(basename "$file")
+            if [ "$basename_file" = "CLAUDE.md" ]; then
+              continue
+            fi
+            if [ ! -f "$file" ]; then
+              continue
+            fi
+
+            python3 -c "
+          import yaml, sys
+          content = open('$file').read()
+          if not content.startswith('---'):
+              sys.exit(0)
+          end = content.index('---', 3)
+          fm = yaml.safe_load(content[3:end])
+          meta = fm.get('metadata', {})
+          for ref in meta.get('worksWellWithAgents', []):
+              print('agent:' + ref)
+          for ref in meta.get('worksWellWithSkills', []):
+              print('skill:' + ref)
+          " | while read -r ref; do
+              kind="${ref%%:*}"
+              slug="${ref#*:}"
+              if [ "$kind" = "agent" ]; then
+                echo "$AGENT_SLUGS" | tr ' ' '\n' | grep -qx "$slug" || {
+                  echo "::error file=$file::Cross-reference 'worksWellWithAgents: $slug' points to an agent that does not exist (no agents/$slug.md found). Check the slug for typos or remove it."
+                  EXIT_CODE=1
+                }
+              elif [ "$kind" = "skill" ]; then
+                echo "$SKILL_SLUGS" | tr ' ' '\n' | grep -qx "$slug" || {
+                  echo "::error file=$file::Cross-reference 'worksWellWithSkills: $slug' points to a skill that does not exist (no skills/$slug/ folder found). Check the slug for typos or remove it."
+                  EXIT_CODE=1
+                }
+              fi
+            done
+          done
+          exit $EXIT_CODE
+
+  lint-markdown:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Restore trusted lint config from main
+        run: |
+          git fetch origin main --depth=1
+          git checkout origin/main -- .markdownlint.jsonc
+
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: |
+            agents/*.md
+            skills/*/SKILL.md
+            skills/*/examples/*.md
+          config: .markdownlint.jsonc
+
+  validate-categories:
+    name: Validate Categories
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash {0}
+    steps:
+      - name: Checkout PR content
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Restore trusted CI config from main
+        run: |
+          git fetch origin main --depth=1
+          git checkout origin/main -- .github/ .markdownlint.jsonc categories.yml
+
+      - name: Validate categories.yml structure and usage
+        run: |
+          python3 << 'PYEOF'
+          import yaml, re, sys, os, glob
+
+          errors = []
+
+          # --- Part 1: Validate categories.yml structure ---
+          try:
+              with open("categories.yml") as f:
+                  data = yaml.safe_load(f)
+          except FileNotFoundError:
+              print("::error file=categories.yml::File not found. The categories.yml file must exist at the repo root.")
+              sys.exit(1)
+          except yaml.YAMLError as e:
+              print(f"::error file=categories.yml::Invalid YAML: {e}")
+              sys.exit(1)
+
+          if not isinstance(data, dict) or "categories" not in data:
+              print("::error file=categories.yml::File must contain a top-level 'categories' key with a list of category entries.")
+              sys.exit(1)
+
+          cats = data["categories"]
+          if not isinstance(cats, list) or len(cats) == 0:
+              print("::error file=categories.yml::The 'categories' list must contain at least one entry.")
+              sys.exit(1)
+
+          slug_pattern = re.compile(r"^[a-z][a-z0-9-]*$")
+          seen_slugs = set()
+
+          for i, cat in enumerate(cats):
+              prefix = f"categories.yml entry {i + 1}"
+              if not isinstance(cat, dict):
+                  errors.append(f"{prefix}: must be a mapping with slug, displayName, and description.")
+                  continue
+
+              for field in ["slug", "displayName", "description"]:
+                  if field not in cat:
+                      errors.append(f"{prefix}: missing required field '{field}'.")
+                  elif not isinstance(cat[field], str) or len(cat[field].strip()) == 0:
+                      errors.append(f"{prefix}: field '{field}' must be a non-empty string.")
+
+              if "slug" in cat and isinstance(cat["slug"], str):
+                  slug = cat["slug"]
+                  if not slug_pattern.match(slug):
+                      errors.append(f"{prefix}: slug '{slug}' must be lowercase with hyphens only (pattern: a-z, 0-9, hyphens, starts with a letter).")
+                  if slug in seen_slugs:
+                      errors.append(f"{prefix}: duplicate slug '{slug}'.")
+                  seen_slugs.add(slug)
+
+          if errors:
+              for e in errors:
+                  print(f"::error file=categories.yml::{e}")
+              sys.exit(1)
+
+          # --- Part 2: Check every category is used by at least one entry ---
+          used_cats = set()
+
+          # Scan agents
+          for path in sorted(glob.glob("agents/*.md")):
+              if os.path.basename(path) == "CLAUDE.md":
+                  continue
+              try:
+                  content = open(path).read()
+                  end = content.index("---", 3)
+                  fm = yaml.safe_load(content[3:end])
+                  for c in fm.get("metadata", {}).get("categories", []):
+                      used_cats.add(c)
+              except Exception:
+                  pass  # frontmatter errors are caught by the other job
+
+          # Scan skills
+          for path in sorted(glob.glob("skills/*/SKILL.md")):
+              try:
+                  content = open(path).read()
+                  end = content.index("---", 3)
+                  fm = yaml.safe_load(content[3:end])
+                  for c in fm.get("metadata", {}).get("categories", []):
+                      used_cats.add(c)
+              except Exception:
+                  pass
+
+          orphaned = seen_slugs - used_cats
+          if orphaned:
+              for slug in sorted(orphaned):
+                  print(f"::error file=categories.yml::Category '{slug}' is defined in categories.yml but not used by any agent or skill. Either add an entry that uses it or remove it from categories.yml.")
+              sys.exit(1)
+
+          print("All categories are valid and in use.")
+          PYEOF
+
+      - name: Validate category sync across files
+        run: |
+          python3 << 'PYEOF'
+          import yaml, re, sys
+
+          # Load categories.yml slugs
+          with open("categories.yml") as f:
+              data = yaml.safe_load(f)
+          expected = {c["slug"] for c in data["categories"]}
+
+          errors = []
+
+          # --- Check CONTRIBUTING.md ---
+          with open("CONTRIBUTING.md") as f:
+              content = f.read()
+
+          # Find the metadata.categories row in the frontmatter rules table
+          contributing_cats = set()
+          for line in content.split("\n"):
+              if "metadata.categories" in line and "|" in line:
+                  # Extract backtick-quoted slugs from the line
+                  contributing_cats = set(re.findall(r"`([a-z][a-z0-9-]*)`", line))
+                  # Remove "metadata.categories" itself from matches
+                  contributing_cats.discard("metadata.categories")
+                  break
+
+          if not contributing_cats:
+              errors.append("CONTRIBUTING.md: could not find category list in the metadata.categories table row.")
+          else:
+              missing = expected - contributing_cats
+              extra = contributing_cats - expected
+              if missing:
+                  errors.append(f"CONTRIBUTING.md is missing categories: {', '.join(sorted(missing))}. Update the metadata.categories row to match categories.yml.")
+              if extra:
+                  errors.append(f"CONTRIBUTING.md has extra categories not in categories.yml: {', '.join(sorted(extra))}. Remove them or add them to categories.yml.")
+
+          # --- Check issue templates ---
+          for template_path in [
+              ".github/ISSUE_TEMPLATE/propose-agent.yml",
+              ".github/ISSUE_TEMPLATE/propose-skill.yml",
+          ]:
+              try:
+                  with open(template_path) as f:
+                      template = yaml.safe_load(f)
+              except FileNotFoundError:
+                  errors.append(f"{template_path}: file not found.")
+                  continue
+
+              # Find the dropdown with id "primary-category"
+              dropdown_options = None
+              for field in template.get("body", []):
+                  if field.get("id") == "primary-category":
+                      dropdown_options = set(field.get("attributes", {}).get("options", []))
+                      break
+
+              if dropdown_options is None:
+                  errors.append(f"{template_path}: could not find dropdown with id 'primary-category'.")
+              else:
+                  missing = expected - dropdown_options
+                  extra = dropdown_options - expected
+                  if missing:
+                      errors.append(f"{template_path} dropdown is missing categories: {', '.join(sorted(missing))}. Update the options list to match categories.yml.")
+                  if extra:
+                      errors.append(f"{template_path} dropdown has extra categories: {', '.join(sorted(extra))}. Remove them or add them to categories.yml.")
+
+          if errors:
+              for e in errors:
+                  print(f"::error::{e}")
+              sys.exit(1)
+
+          print("All files are in sync with categories.yml.")
+          PYEOF

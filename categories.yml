@@ -1,0 +1,40 @@
+categories:
+  - slug: engineering
+    displayName: Engineering
+    description: Software development, infrastructure, DevOps, and technical architecture
+
+  - slug: business
+    displayName: Business
+    description: Sales, marketing, finance, legal, and business operations
+
+  - slug: product-management
+    displayName: Product Management
+    description: Product strategy, requirements, roadmaps, and user research
+
+  - slug: project-management
+    displayName: Project Management
+    description: Scrum, sprint planning, program management, and delivery coordination
+
+  - slug: design
+    displayName: Design
+    description: UI/UX design, accessibility, visual design, and design systems
+
+  - slug: data
+    displayName: Data
+    description: Data science, analytics, machine learning, and data engineering
+
+  - slug: communication
+    displayName: Communication
+    description: Technical writing, content strategy, developer advocacy, and training
+
+  - slug: security
+    displayName: Security
+    description: Application security, compliance, auditing, and threat modeling
+
+  - slug: leadership
+    displayName: Leadership
+    description: Engineering management, people ops, hiring, and executive advisory
+
+  - slug: operations
+    displayName: Operations
+    description: SRE, incident management, release management, and cloud operations

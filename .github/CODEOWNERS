@@ -1,0 +1,5 @@
+# Default owners for all content — require maintainer review on every PR
+* @The-AI-Directory-Company/maintainers
+
+# CI and repo config changes need admin review
+/.github/ @The-AI-Directory-Company/admins

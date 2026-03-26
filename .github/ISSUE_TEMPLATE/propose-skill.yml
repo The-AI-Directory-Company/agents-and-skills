@@ -1,0 +1,65 @@
+name: "Propose a New Skill"
+description: "Suggest a new skill procedure for the directory"
+labels: ["new-skill", "triage"]
+body:
+  - type: input
+    id: slug
+    attributes:
+      label: Skill slug
+      description: "Lowercase, hyphenated (e.g., prd-writing). This becomes the folder name."
+      placeholder: "my-skill-name"
+    validations:
+      required: true
+
+  - type: input
+    id: display-name
+    attributes:
+      label: Display name
+      description: "Human-readable name (e.g., PRD Writing)"
+      placeholder: "My Skill Name"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What does this skill do?
+      description: "1-3 sentences. What task does it guide an AI through? What output does it produce?"
+      placeholder: "A step-by-step procedure that..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: primary-category
+    attributes:
+      label: Primary category
+      options:
+        - engineering
+        - product-management
+        - project-management
+        - design
+        - data
+        - business
+        - communication
+        - security
+        - leadership
+        - operations
+    validations:
+      required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: Related agents or skills
+      description: "Any existing agents/skills this would complement? (optional)"
+      placeholder: "Works well with: product-designer, user-story-mapping"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: willing-to-submit
+    attributes:
+      label: Contribution
+      options:
+        - label: "I am willing to submit a PR for this skill"
+          required: false

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contributing Guide
+    url: https://github.com/The-AI-Directory-Company/agents-and-skills/blob/main/CONTRIBUTING.md
+    about: Read this before opening your first PR
+  - name: Browse the Directory
+    url: https://ai-directory.company
+    about: See existing agents and skills for reference

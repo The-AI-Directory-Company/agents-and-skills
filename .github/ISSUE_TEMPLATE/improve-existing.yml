@@ -1,0 +1,38 @@
+name: "Improve Existing Agent or Skill"
+description: "Suggest improvements to an existing entry"
+labels: ["improvement", "triage"]
+body:
+  - type: input
+    id: entry-slug
+    attributes:
+      label: Which agent or skill?
+      description: "The slug of the entry to improve (e.g., code-reviewer, prd-writing)"
+      placeholder: "entry-slug"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: entry-type
+    attributes:
+      label: Type
+      options:
+        - Agent
+        - Skill
+    validations:
+      required: true
+
+  - type: textarea
+    id: improvement
+    attributes:
+      label: What should be improved?
+      description: "Describe the gap or issue. Be specific about what is missing, incorrect, or could be better."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: willing-to-submit
+    attributes:
+      label: Contribution
+      options:
+        - label: "I am willing to submit a PR for this improvement"
+          required: false
