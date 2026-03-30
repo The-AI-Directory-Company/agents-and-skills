@@ -1,27 +1,71 @@
-# Agents & Skills
+# AI Agent Templates & Skill Definitions
 
-Community-maintained agent and skill definitions for [The AI Directory](https://ai-directory.company).
+70+ AI agent templates and 55+ skill definitions for [Claude Code](https://code.claude.com), [Cursor](https://cursor.com), [Windsurf](https://windsurf.com), and other AI coding tools. Community-maintained, MIT licensed.
 
 [![Validate PR Content](https://github.com/The-AI-Directory-Company/agents-and-skills/actions/workflows/validate-pr.yml/badge.svg)](https://github.com/The-AI-Directory-Company/agents-and-skills/actions/workflows/validate-pr.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+> **Browse the full directory:** [AI Agent Templates](https://ai-directory.company/agents) | [AI Skill Definitions](https://ai-directory.company/skills)
+
 ---
 
-## What Is This?
+## What Are AI Agent Templates?
 
-This repository is the open content layer for [ai-directory.company](https://ai-directory.company). It contains two types of content:
+AI agent templates are structured Markdown files that give AI coding assistants a specialized role. Each template defines a complete persona — expertise, decision-making frameworks, behavioral patterns, and communication style. When loaded into Claude Code, Cursor, or Windsurf, the AI assistant adopts that role and operates with domain-specific judgment.
 
-### Agents
+Examples include:
 
-AI persona definitions — markdown files that describe a specialized role, its expertise, decision frameworks, and behavioral patterns. Each agent file gives an AI assistant the context it needs to perform as a domain expert.
+- **[Code Reviewer](https://ai-directory.company/agents/code-reviewer)** — catches bugs, security issues, and style violations with actionable feedback
+- **[Product Manager](https://ai-directory.company/agents/product-manager)** — writes PRDs, prioritizes features, and defines acceptance criteria
+- **[Data Scientist](https://ai-directory.company/agents/data-scientist)** — analyzes datasets, builds models, and explains statistical results
+- **[Security Engineer](https://ai-directory.company/agents/security-engineer)** — audits code for vulnerabilities and recommends mitigations
+- **[Technical Writer](https://ai-directory.company/agents/technical-writer)** — creates documentation, API references, and developer guides
 
-Browse agents: [ai-directory.company/agents](https://ai-directory.company/agents)
+[Browse all 70+ agents →](https://ai-directory.company/agents)
 
-### Skills
+## What Are AI Skill Definitions?
 
-Reusable prompt-driven procedures — step-by-step instructions that guide an AI assistant through a specific task. Skills can include templates, checklists, and worked examples. They are designed to be installed into tools like Claude Code, Cursor, or any AI coding assistant.
+Skill definitions are composable, task-focused prompt templates for specific workflows. Unlike agents (which define *who* the AI becomes), skills define *what* the AI does — step-by-step instructions for a concrete task. Skills can include templates, checklists, scripts, and reference material.
 
-Browse skills: [ai-directory.company/skills](https://ai-directory.company/skills)
+Examples include:
+
+- **[PRD Writing](https://ai-directory.company/skills/prd-writing)** — product requirements with user stories and acceptance criteria
+- **[Code Review Checklist](https://ai-directory.company/skills/code-review-checklist)** — structured review covering security, performance, and readability
+- **[Incident Postmortem](https://ai-directory.company/skills/incident-postmortem)** — post-incident review with timeline, root cause, and action items
+- **[Architecture Decision Record](https://ai-directory.company/skills/architecture-decision-record)** — document decisions with context, options, and consequences
+- **[System Design Document](https://ai-directory.company/skills/system-design-document)** — architecture documentation with trade-offs and diagrams
+
+[Browse all 55+ skills →](https://ai-directory.company/skills)
+
+## How to Install
+
+### Claude Code Skills
+
+Install any skill directly into your project:
+
+```bash
+npx skills add code-review-checklist
+```
+
+Or install manually — copy the skill folder into `.claude/skills/` in your project:
+
+```bash
+cp -r skills/code-review-checklist .claude/skills/
+```
+
+### Claude Code Agents
+
+Copy the agent file into your project as a system prompt or CLAUDE.md context:
+
+```bash
+cp agents/code-reviewer.md .claude/agents/code-reviewer.md
+```
+
+### Cursor & Windsurf
+
+Agent and skill files are standard Markdown. Copy them into your project's AI configuration directory — `.cursor/` for Cursor, `.windsurf/` for Windsurf, or wherever your tool reads system prompts.
+
+## Specification
 
 All content follows the **[Agent Skills specification](https://agentskills.io)** — the open standard adopted by Claude Code, OpenAI Codex, Cursor, GitHub Copilot, Gemini CLI, and 25+ other AI tools.
 
@@ -29,7 +73,7 @@ All content follows the **[Agent Skills specification](https://agentskills.io)**
 
 ## Repository Structure
 
-```
+```text
 agents/
   CLAUDE.md              # Authoring guide for agent definitions
   *.md                   # One file per agent (filename = slug)
@@ -47,7 +91,7 @@ skills/
 
 ## Contributing
 
-We welcome contributions from anyone! Whether you are adding a new agent, creating a skill, or improving an existing entry — your expertise makes this directory better for everyone.
+We welcome contributions from anyone. Whether you are adding a new agent, creating a skill, or improving an existing entry — your expertise makes this directory better for everyone.
 
 **Quick start:**
 
@@ -84,6 +128,7 @@ If a check fails, click the details link to see exactly what needs to be fixed. 
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Security Policy](SECURITY.md)
 - [Getting Help](SUPPORT.md)
+- [Community Forum](https://ai-directory.company/forum)
 
 ---
 
