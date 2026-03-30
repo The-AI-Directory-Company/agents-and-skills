@@ -103,7 +103,7 @@ def check_via_ahrefs(domain, api_credentials):
     return {
         "method": "ahrefs",
         "status": "api_call_prepared",
-        "endpoint": f"https://apiv2.ahrefs.com?target={domain}&mode=domain&output=json",
+        "endpoint": f"https://api.ahrefs.com/v3/site-explorer/backlinks?target={domain}&mode=domain",
         "instructions": [
             "Execute the API call with Ahrefs API token.",
             "Parse response for: backlinks count, referring domains, domain rating.",

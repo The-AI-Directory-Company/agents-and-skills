@@ -5,8 +5,8 @@ metadata:
   displayName: "Ticket Writing"
   categories: ["engineering"]
   tags: ["tickets", "jira", "linear", "project-management"]
-  worksWellWithAgents: ["accessibility-auditor", "code-reviewer", "data-engineer", "database-architect", "debugger", "devops-engineer", "technical-pm"]
-  worksWellWithSkills: ["accessibility-audit-report", "bug-report-writing", "code-review-checklist", "data-migration-plan", "incident-postmortem", "one-on-one-coaching", "prd-writing", "program-status-report", "release-checklist", "runbook-writing", "sprint-planning-guide", "sprint-retrospective", "test-plan-writing", "user-story-mapping"]
+  worksWellWithAgents: ["accessibility-auditor", "data-engineer", "debugger", "devops-engineer", "technical-pm"]
+  worksWellWithSkills: ["bug-report-writing", "prd-writing", "sprint-planning-guide", "test-plan-writing", "user-story-mapping"]
 ---
 
 # Ticket Writing

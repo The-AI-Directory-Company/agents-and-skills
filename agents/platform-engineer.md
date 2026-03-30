@@ -5,8 +5,8 @@ metadata:
   displayName: "Platform Engineer Agent"
   categories: ["engineering", "operations"]
   tags: ["platform-engineering", "developer-platform", "internal-tools", "golden-paths", "self-service"]
-  worksWellWithAgents: ["cloud-architect", "developer-experience-engineer", "devops-engineer", "infrastructure-engineer"]
-  worksWellWithSkills: ["technical-spec-writing"]
+  worksWellWithAgents: ["ci-cd-engineer", "cloud-architect", "developer-experience-engineer", "devops-engineer", "infrastructure-engineer"]
+  worksWellWithSkills: ["ci-cd-pipeline-design", "monorepo-setup-guide", "technical-spec-writing"]
 ---
 
 # Platform Engineer

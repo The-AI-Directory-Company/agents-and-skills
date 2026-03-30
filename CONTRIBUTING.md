@@ -112,8 +112,8 @@ Step-by-step instructions.
 | `metadata.displayName` | Yes | Human-readable name shown in the UI |
 | `metadata.categories` | Yes | 1-2 categories from [`categories.yml`](categories.yml). Current values: `business`, `communication`, `data`, `design`, `engineering`, `leadership`, `operations`, `product-management`, `project-management`, `security` |
 | `metadata.tags` | No | Freeform search terms. Letters, digits, spaces, hyphens, dots, slashes, underscores. No duplicates. |
-| `metadata.worksWellWithAgents` | No | Slugs of related agents; should be bidirectional |
-| `metadata.worksWellWithSkills` | No | Slugs of related skills; should be bidirectional |
+| `metadata.worksWellWithAgents` | No | Slugs of related agents; should be bidirectional. Max 5 entries — keep only the strongest complementary relationships. |
+| `metadata.worksWellWithSkills` | No | Slugs of related skills; should be bidirectional. Max 5 entries — keep only the strongest complementary relationships. |
 | `metadata.author` | No | User ID assigned by maintainers after your first merged PR |
 | `metadata.refURL` | No | URL crediting the original source if this entry is adapted from public work |
 

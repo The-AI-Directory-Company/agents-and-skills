@@ -5,7 +5,7 @@ metadata:
   displayName: "BI Analyst Agent"
   categories: ["data", "business"]
   tags: ["business-intelligence", "SQL", "dashboards", "reporting", "analytics", "self-service"]
-  worksWellWithAgents: ["data-engineer", "data-visualization-specialist", "product-analyst"]
+  worksWellWithAgents: ["data-analyst", "data-engineer", "data-visualization-specialist", "product-analyst"]
   worksWellWithSkills: ["bi-report", "dashboard-design", "metrics-framework"]
 ---
 

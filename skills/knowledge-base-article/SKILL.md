@@ -5,7 +5,7 @@ metadata:
   displayName: "Knowledge Base Article"
   categories: ["communication", "business"]
   tags: ["knowledge-base", "support", "self-service", "help-center", "troubleshooting"]
-  worksWellWithAgents: ["customer-success-manager", "support-engineer", "technical-writer"]
+  worksWellWithAgents: ["code-explainer", "codebase-onboarder", "customer-success-manager", "support-engineer", "technical-writer"]
   worksWellWithSkills: ["bug-report-writing"]
 ---
 

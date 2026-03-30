@@ -5,8 +5,8 @@ metadata:
   displayName: "Architecture Decision Record"
   categories: ["engineering"]
   tags: ["ADR", "architecture", "decisions", "documentation", "technical-decisions"]
-  worksWellWithAgents: ["cto-advisor", "enterprise-architect"]
-  worksWellWithSkills: ["system-design-document", "technical-spec-writing"]
+  worksWellWithAgents: ["autonomous-coding-agent", "code-generator", "code-migrator", "cto-advisor", "enterprise-architect"]
+  worksWellWithSkills: ["codebase-exploration", "monorepo-setup-guide", "refactoring-checklist", "system-design-document", "technical-spec-writing"]
 ---
 
 # Architecture Decision Record

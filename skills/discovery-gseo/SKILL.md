@@ -7,13 +7,11 @@ description: >
   scoring to produce a prioritized content plan that drives traffic and AI visibility.
 metadata:
   displayName: "Discovery GSEO"
-  categories: ["business", "communication"]
+  categories: ["business", "operations"]
   tags: ["SEO", "GEO", "GSEO", "keyword-research", "discovery", "competitor-analysis",
          "SERP-analysis", "content-planning", "Playwright", "browser-automation"]
-  worksWellWithAgents: ["seo-specialist", "marketing-strategist", "content-strategist",
-                        "growth-engineer", "product-marketing-manager"]
-  worksWellWithSkills: ["technical-sgeo", "on-page-sgeo", "content-sgeo", "off-page-sgeo",
-                        "technical-seo-audit", "content-calendar", "go-to-market-plan"]
+  worksWellWithAgents: ["content-strategist", "growth-engineer", "marketing-strategist", "product-marketing-manager", "seo-specialist"]
+  worksWellWithSkills: ["content-sgeo", "off-page-sgeo", "on-page-sgeo", "technical-sgeo"]
 ---
 
 # Discovery GSEO
@@ -23,6 +21,21 @@ Discovery GSEO is the upstream layer that determines *what* to build before the 
 This is skill 0 of 5 in the SGEO series: **discovery-gseo** > technical-sgeo > on-page-sgeo > content-sgeo > off-page-sgeo.
 
 The output of this skill is a **prioritized content plan** — keywords mapped to pages, scored on 4 dimensions (including GEO opportunity), ordered by impact. Everything else in the SGEO pipeline flows from this plan.
+
+## Before you start
+
+Gather the following from the user. If anything is missing, ask before proceeding:
+
+1. **What is your business/product?** (Product category, target market, value proposition)
+2. **What is your site URL?** (Existing site for quick win analysis, or "new site" if starting from scratch)
+3. **Who are your known competitors?** (3-5 domains — business competitors AND SEO competitors)
+4. **What is your current SEO status?** (Brand new / some content / established — determines whether Phase 10 is applicable)
+5. **Do you have Google Search Console access?** (Critical for Phase 10 quick wins)
+6. **What is the target country/region?** (For localized SERP analysis and volume data)
+7. **What is your budget for tools?** (None / small / moderate / significant — determines which paid tool paths are available)
+8. **How important is AI visibility?** (Determines weight of GEO scoring in prioritization — low / medium / high)
+
+If the user says "I just want to find keywords," push back: "Keywords without intent classification, competitor validation, and prioritization scoring produce a random list, not a strategy. Which phase do you want to start from?"
 
 ## Tool discovery
 
@@ -50,24 +63,9 @@ Before gathering project details, confirm which tools are available. Ask the use
 3. Present the full checklist to the user and record what is available
 4. Pass the inventory to scripts as context
 
-## Before you start
-
-Gather the following from the user. If anything is missing, ask before proceeding:
-
-1. **What is your business/product?** (Product category, target market, value proposition)
-2. **What is your site URL?** (Existing site for quick win analysis, or "new site" if starting from scratch)
-3. **Who are your known competitors?** (3-5 domains — business competitors AND SEO competitors)
-4. **What is your current SEO status?** (Brand new / some content / established — determines whether Phase 10 is applicable)
-5. **Do you have Google Search Console access?** (Critical for Phase 10 quick wins)
-6. **What is the target country/region?** (For localized SERP analysis and volume data)
-7. **What is your budget for tools?** (None / small / moderate / significant — determines which paid tool paths are available)
-8. **How important is AI visibility?** (Determines weight of GEO scoring in prioritization — low / medium / high)
-
-If the user says "I just want to find keywords," push back: "Keywords without intent classification, competitor validation, and prioritization scoring produce a random list, not a strategy. Which phase do you want to start from?"
-
 ## Phase 1: Generate seed keywords
 
-> **Scripts:** Run `scripts/probe-ai-discovery.py --queries 'What are the best [category] tools?'` to validate seeds against AI visibility.
+> **Scripts:** Run `scripts/probe-ai-discovery.py --queries queries.txt` to validate seeds against AI visibility. Add your seed queries (e.g., "What are the best [category] tools?") to `queries.txt`, one per line.
 > **References:** See `references/seed-generation.md` for the 5-source mental model and GEO seed validation methodology.
 
 Seed keywords are your starting points. They are the obvious, broad terms that describe your product, service, or topic. You do not need tools for this — just structured thinking.

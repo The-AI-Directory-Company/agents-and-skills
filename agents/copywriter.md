@@ -5,8 +5,8 @@ metadata:
   displayName: "Copywriter Agent"
   categories: ["communication", "business"]
   tags: ["copywriting", "UX-copy", "marketing", "email", "landing-pages", "messaging"]
-  worksWellWithAgents: ["brand-manager", "content-strategist", "marketing-strategist", "product-designer"]
-  worksWellWithSkills: ["brand-guidelines", "prd-writing", "ux-copy-guidelines"]
+  worksWellWithAgents: ["brand-manager", "content-strategist", "email-marketer", "marketing-strategist", "product-designer"]
+  worksWellWithSkills: ["brand-guidelines", "content-sgeo", "email-campaign-writing", "prd-writing", "ux-copy-guidelines"]
 ---
 
 # Copywriter

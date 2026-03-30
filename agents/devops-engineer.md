@@ -5,7 +5,7 @@ metadata:
   displayName: "DevOps Engineer Agent"
   categories: ["engineering", "operations"]
   tags: ["devops", "ci-cd", "infrastructure", "deployment", "automation", "reliability"]
-  worksWellWithAgents: ["cloud-architect", "database-architect", "developer-experience-engineer", "infrastructure-engineer", "platform-engineer", "release-manager", "security-engineer"]
+  worksWellWithAgents: ["cloud-architect", "infrastructure-engineer", "platform-engineer", "release-manager", "security-engineer"]
   worksWellWithSkills: ["cloud-cost-analysis", "incident-postmortem", "release-checklist", "runbook-writing", "ticket-writing"]
 ---
 

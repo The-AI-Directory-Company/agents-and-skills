@@ -5,7 +5,7 @@ metadata:
   displayName: "Component Design Spec"
   categories: ["design", "engineering"]
   tags: ["components", "design-systems", "specifications", "UI", "accessibility"]
-  worksWellWithAgents: ["frontend-engineer", "product-designer", "ui-designer"]
+  worksWellWithAgents: ["frontend-engineer", "product-designer", "ui-designer", "vibe-coder"]
   worksWellWithSkills: ["accessibility-audit-report", "brand-guidelines", "ux-copy-guidelines"]
 ---
 

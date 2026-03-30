@@ -5,8 +5,8 @@ metadata:
   displayName: "Business Analyst Agent"
   categories: ["business", "product-management"]
   tags: ["business-analysis", "requirements", "stakeholder-management", "process-modeling", "gap-analysis"]
-  worksWellWithAgents: ["management-consultant", "solutions-architect", "technical-pm", "vp-product"]
-  worksWellWithSkills: ["prd-writing", "stakeholder-interview", "user-story-mapping"]
+  worksWellWithAgents: ["data-analyst", "management-consultant", "solutions-architect", "technical-pm", "vp-product"]
+  worksWellWithSkills: ["competitive-analysis", "prd-writing", "stakeholder-interview", "startup-pitch-deck", "user-story-mapping"]
 ---
 
 # Business Analyst

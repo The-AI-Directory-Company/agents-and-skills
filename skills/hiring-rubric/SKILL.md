@@ -5,7 +5,7 @@ metadata:
   displayName: "Hiring Rubric"
   categories: ["leadership", "business"]
   tags: ["hiring", "interviews", "rubrics", "recruiting", "evaluation"]
-  worksWellWithAgents: ["technical-recruiter"]
+  worksWellWithAgents: ["career-coach", "technical-recruiter"]
   worksWellWithSkills: ["one-on-one-coaching", "stakeholder-interview"]
 ---
 

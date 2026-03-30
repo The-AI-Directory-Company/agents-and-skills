@@ -33,6 +33,15 @@ def search_site(query, timeout=15):
     Search for a query and try to extract result count.
     This is a simplified implementation — real agents should use WebSearch tool.
     Returns (estimated_count, raw_response_snippet, error).
+
+    WARNING: The HTML scraping path below (fetching google.com/search and
+    parsing "About X results") is unreliable. Google frequently changes its
+    markup, serves CAPTCHAs, and rate-limits automated requests. Agents
+    should prefer the WebSearch-based approach: run WebSearch with
+    "site:<domain>" and read the result count from the tool output. The
+    fallback_instructions in main() describe this path. This function
+    exists only as a best-effort fallback when no WebSearch tool is
+    available.
     """
     # URL-encode the query
     encoded = urllib.request.quote(query)

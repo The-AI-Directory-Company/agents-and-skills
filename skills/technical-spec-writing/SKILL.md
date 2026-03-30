@@ -5,8 +5,8 @@ metadata:
   displayName: "Technical Spec Writing"
   categories: ["engineering"]
   tags: ["technical-spec", "RFC", "design-doc", "specification", "engineering"]
-  worksWellWithAgents: ["api-developer", "developer-experience-engineer", "documentation-architect", "platform-engineer", "software-architect", "tech-lead", "technical-pm"]
-  worksWellWithSkills: ["api-design-guide", "architecture-decision-record", "prd-writing", "system-design-document"]
+  worksWellWithAgents: ["api-developer", "platform-engineer", "software-architect", "tech-lead", "technical-pm"]
+  worksWellWithSkills: ["ai-prompt-writing", "api-design-guide", "architecture-decision-record", "prd-writing", "system-design-document"]
 ---
 
 # Technical Spec Writing

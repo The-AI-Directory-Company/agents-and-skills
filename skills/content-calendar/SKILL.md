@@ -5,8 +5,8 @@ metadata:
   displayName: "Content Calendar"
   categories: ["communication", "business"]
   tags: ["content", "editorial", "calendar", "planning", "publishing"]
-  worksWellWithAgents: ["content-strategist", "developer-advocate", "technical-writer"]
-  worksWellWithSkills: ["prd-writing", "stakeholder-interview"]
+  worksWellWithAgents: ["content-strategist", "developer-advocate", "email-marketer", "social-media-manager", "technical-writer"]
+  worksWellWithSkills: ["content-sgeo", "email-campaign-writing", "prd-writing", "social-media-content-plan", "stakeholder-interview"]
 ---
 
 # Content Calendar

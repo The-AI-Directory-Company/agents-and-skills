@@ -6,7 +6,7 @@ metadata:
   categories: ["engineering", "data"]
   tags: ["prompts", "LLM", "evaluation", "chain-of-thought", "AI", "optimization"]
   worksWellWithAgents: ["ai-engineer", "ml-engineer", "prompt-engineer"]
-  worksWellWithSkills: ["experiment-design", "test-plan-writing"]
+  worksWellWithSkills: ["ai-prompt-writing", "experiment-design", "test-plan-writing"]
 ---
 
 # Prompt Engineering Guide

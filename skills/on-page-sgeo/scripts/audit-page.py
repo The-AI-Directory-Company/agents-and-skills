@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """On-Page SGEO Audit — orchestrator script.
 
-Runs all 7 on-page-sgeo scripts against a single URL and aggregates
+Runs all on-page-sgeo sub-scripts against a single URL and aggregates
 results into the On-Page SGEO Audit Table format from SKILL.md Section 10.
 
 Usage:

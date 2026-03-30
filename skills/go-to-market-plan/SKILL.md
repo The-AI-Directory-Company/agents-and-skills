@@ -5,8 +5,8 @@ metadata:
   displayName: "Go-to-Market Plan"
   categories: ["business"]
   tags: ["go-to-market", "launch", "positioning", "channels", "marketing", "strategy"]
-  worksWellWithAgents: ["marketing-strategist", "pricing-strategist", "vp-product"]
-  worksWellWithSkills: ["metrics-framework", "prd-writing", "product-launch-brief"]
+  worksWellWithAgents: ["email-marketer", "marketing-strategist", "pricing-strategist", "social-media-manager", "vp-product"]
+  worksWellWithSkills: ["competitive-analysis", "email-campaign-writing", "metrics-framework", "prd-writing", "product-launch-brief"]
 ---
 
 # Go-to-Market Plan

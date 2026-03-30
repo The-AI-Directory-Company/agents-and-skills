@@ -6,7 +6,7 @@ metadata:
   categories: ["project-management"]
   tags: ["scrum", "agile", "sprint-planning", "retrospectives", "facilitation", "team-dynamics"]
   worksWellWithAgents: ["project-manager", "tech-lead", "technical-pm"]
-  worksWellWithSkills: ["sprint-planning-guide", "sprint-retrospective", "user-story-mapping"]
+  worksWellWithSkills: ["okr-writing", "sprint-planning-guide", "sprint-retrospective", "user-story-mapping"]
 ---
 
 # Scrum Master

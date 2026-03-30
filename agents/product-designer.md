@@ -5,7 +5,7 @@ metadata:
   displayName: "Product Designer Agent"
   categories: ["design", "product-management"]
   tags: ["product-design", "wireframes", "prototyping", "user-flows", "design-systems", "interaction-design"]
-  worksWellWithAgents: ["copywriter", "ui-designer", "ux-researcher"]
+  worksWellWithAgents: ["copywriter", "no-code-builder", "ui-designer", "ux-researcher", "vibe-coder"]
   worksWellWithSkills: ["component-design-spec", "user-story-mapping", "ux-copy-guidelines"]
 ---
 

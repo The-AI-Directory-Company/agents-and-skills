@@ -6,7 +6,7 @@ metadata:
   categories: ["business", "product-management"]
   tags: ["launch", "product-marketing", "brief", "go-to-market", "cross-functional"]
   worksWellWithAgents: ["marketing-strategist", "product-marketing-manager"]
-  worksWellWithSkills: ["go-to-market-plan", "prd-writing"]
+  worksWellWithSkills: ["competitive-analysis", "email-campaign-writing", "go-to-market-plan", "prd-writing"]
 ---
 
 # Product Launch Brief

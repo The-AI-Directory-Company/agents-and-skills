@@ -15,7 +15,7 @@ Before you pitch, build a list of people who actually cover your topic. Cold-pit
 1. **Search by beat:** Look for reporters who cover your niche. Search "[topic] reporter" or "[topic] journalist" on Twitter/X. Check bylines on the publications you want to appear in.
 2. **Use Muck Rack** (paid, ~$5K/year): The industry-standard journalist database. Search by topic, publication, and recent coverage. Shows journalist contact info and recent articles. Worth it if PR is a core channel.
 3. **Manual research** (free): For each target publication, check the staff/contributors page. Find 2-3 writers who cover your topic area. Read their recent articles to understand their angle and interests.
-4. **Follow HARO/Connectively queries:** Journalists post specific questions they need expert sources for. Subscribe to the daily digest. Filter for your topic area. Respond within 2 hours — late responses rarely get used.
+4. **Follow journalist query platforms (Qwoted, Featured.com, Terkel):** Journalists post specific questions they need expert sources for. Subscribe to the daily digest. Filter for your topic area. Respond within 2 hours — late responses rarely get used. (HARO and Connectively, previously the dominant services here, were discontinued in 2023-2024.)
 
 ### Building Your List
 
@@ -144,7 +144,7 @@ I can share the dataset or provide commentary. Which would be more useful?
 - **Worst days:** Monday (inbox overload) and Friday (winding down for weekend)
 - **Follow up once** after 3-5 business days if no response
 - **Never follow up more than twice total.** If they don't respond after two emails, they're not interested. Move on.
-- **HARO/Connectively:** Respond within 2 hours of the query posting. Include 1-2 data points and your credentials. Late responses rarely get used.
+- **Journalist query platforms (Qwoted, Featured.com, Terkel):** Respond within 2 hours of the query posting. Include 1-2 data points and your credentials. Late responses rarely get used. HARO and Connectively were discontinued in 2023-2024.
 
 ### Response Rate Expectations
 
@@ -152,7 +152,7 @@ I can share the dataset or provide commentary. Which would be more useful?
 |---------|--------------|----------------------|
 | Cold pitch (no prior engagement) | 5-10% | 2-5% |
 | Warm contact (pre-pitch engagement) | 15-25% | 8-12% |
-| HARO/Connectively (within 2 hours) | 15-25% | 10-15% |
+| Journalist query platforms — Qwoted, Featured.com, Terkel (within 2 hours) | 15-25% | 10-15% |
 | Podcast pitch | 10-20% | 5-10% |
 
 These numbers mean you need volume. To get 2-3 press mentions per month, you need 30-50 active outreach threads.

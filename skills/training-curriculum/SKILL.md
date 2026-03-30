@@ -5,7 +5,7 @@ metadata:
   displayName: "Training Curriculum"
   categories: ["communication"]
   tags: ["training", "curriculum", "learning", "education", "onboarding", "skill-development"]
-  worksWellWithAgents: ["instructional-designer"]
+  worksWellWithAgents: ["code-explainer", "instructional-designer"]
   worksWellWithSkills: ["onboarding-plan"]
 ---
 

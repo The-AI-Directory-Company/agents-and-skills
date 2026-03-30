@@ -5,11 +5,26 @@ metadata:
   displayName: "Content SGEO Strategy"
   categories: ["communication", "business"]
   tags: ["SEO", "GEO", "SGEO", "content-strategy", "keyword-research", "search-intent", "topic-clusters", "E-E-A-T", "AI-citation"]
-  worksWellWithAgents: ["seo-specialist", "content-strategist", "copywriter", "marketing-strategist"]
-  worksWellWithSkills: ["technical-sgeo", "on-page-sgeo", "off-page-sgeo", "content-calendar", "technical-seo-audit"]
+  worksWellWithAgents: ["content-strategist", "copywriter", "marketing-strategist", "seo-specialist"]
+  worksWellWithSkills: ["content-calendar", "discovery-gseo", "off-page-sgeo", "on-page-sgeo", "technical-sgeo"]
 ---
 
 # Content SGEO Strategy
+
+## Before you start
+
+Gather the following from the user before planning or creating any content:
+
+1. **What should content achieve?** (Lead generation, signups, brand awareness, topical authority, investor credibility — pick a primary goal)
+2. **Who is the target audience?** (Job titles, experience levels, industries. "Everyone" is not an audience.)
+3. **What content already exists?** (Number of published pages, topics covered, current traffic levels. An audit URL or sitemap helps.)
+4. **Who are the competitors?** (3-5 sites that rank for the same topics. Needed for gap analysis in Step 1.)
+5. **Is Google Search Console connected?** (Existing query data accelerates keyword research and reveals quick wins at positions 4-15.)
+6. **What resources are available?** (Who writes? How many pieces per month? Budget for tools like Ahrefs, Semrush, or Clearscope?)
+7. **How important is AI citation?** (Some businesses prioritize appearing in ChatGPT, Perplexity, or Gemini answers. Others only care about Google rankings. This changes content structure.)
+8. **What is the timeline?** (SEO compounds over 3-6 months. GEO citation can be faster but fluctuates. Set expectations early.)
+
+If the user says "we need more content," push back: "More content without keyword research, intent mapping, and a cluster strategy creates noise. What specific business outcome should content drive in the next quarter?"
 
 ## Tool discovery
 
@@ -34,21 +49,6 @@ Ask the user directly — do not assume access to any external service.
 2. Record which tools are available
 3. Pass the inventory to scripts as context
 4. Fall back gracefully — every check has a free-tier path using WebFetch/WebSearch
-
-## Before you start
-
-Gather the following from the user before planning or creating any content:
-
-1. **What should content achieve?** (Lead generation, signups, brand awareness, topical authority, investor credibility — pick a primary goal)
-2. **Who is the target audience?** (Job titles, experience levels, industries. "Everyone" is not an audience.)
-3. **What content already exists?** (Number of published pages, topics covered, current traffic levels. An audit URL or sitemap helps.)
-4. **Who are the competitors?** (3-5 sites that rank for the same topics. Needed for gap analysis in Step 1.)
-5. **Is Google Search Console connected?** (Existing query data accelerates keyword research and reveals quick wins at positions 4-15.)
-6. **What resources are available?** (Who writes? How many pieces per month? Budget for tools like Ahrefs, Semrush, or Clearscope?)
-7. **How important is AI citation?** (Some businesses prioritize appearing in ChatGPT, Perplexity, or Gemini answers. Others only care about Google rankings. This changes content structure.)
-8. **What is the timeline?** (SEO compounds over 3-6 months. GEO citation can be faster but fluctuates. Set expectations early.)
-
-If the user says "we need more content," push back: "More content without keyword research, intent mapping, and a cluster strategy creates noise. What specific business outcome should content drive in the next quarter?"
 
 ## Content SGEO procedure
 

@@ -1,0 +1,5 @@
+scenario,avg_price_per_unit,conversion_rate_pct,estimated_customers_y1,arr_y1,delta_vs_baseline,notes
+Current Pricing (Baseline),,,,,$0,Replace with actual current metrics
+Proposed Pricing,,,,,vs baseline,Primary recommendation — document key assumption changes
+Conservative (Lower Price),,,,,vs baseline,Lower price point — higher volume scenario
+Aggressive (Higher Price),,,,,vs baseline,Higher price point — lower volume scenario with churn risk

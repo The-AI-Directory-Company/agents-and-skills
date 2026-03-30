@@ -6,7 +6,7 @@ metadata:
   categories: ["project-management"]
   tags: ["status-report", "program-management", "reporting", "risks", "tracking"]
   worksWellWithAgents: ["engineering-manager", "project-manager", "technical-program-manager"]
-  worksWellWithSkills: ["ticket-writing"]
+  worksWellWithSkills: ["okr-writing", "ticket-writing"]
 ---
 
 # Program Status Report

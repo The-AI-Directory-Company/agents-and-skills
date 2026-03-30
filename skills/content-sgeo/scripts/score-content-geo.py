@@ -514,10 +514,10 @@ def score_original_value(text_parts: list[str]) -> tuple[int, list[str]]:
     elif "case_study" in found_indicators or "first_hand_testing" in found_indicators:
         score = 3
     else:
-        score = 1
+        score = 0
         recommendations.append(
-            "No original value detected — add your own data, case study, "
-            "or proprietary framework. Flag for human review."
+            "No original value detected — content has no original value. "
+            "Add your own data, case study, or proprietary framework. Flag for human review."
         )
 
     if score < 3:

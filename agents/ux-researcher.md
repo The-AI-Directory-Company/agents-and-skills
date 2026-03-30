@@ -5,7 +5,7 @@ metadata:
   displayName: "UX Researcher Agent"
   categories: ["design", "product-management"]
   tags: ["ux-research", "usability", "user-interviews", "surveys", "behavioral-analysis"]
-  worksWellWithAgents: ["accessibility-auditor", "content-strategist", "mobile-engineer", "product-analyst", "product-designer", "ui-designer"]
+  worksWellWithAgents: ["accessibility-auditor", "content-strategist", "product-analyst", "product-designer", "ui-designer"]
   worksWellWithSkills: ["accessibility-audit-report", "user-story-mapping"]
 ---
 

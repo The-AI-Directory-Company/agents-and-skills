@@ -5,8 +5,8 @@ metadata:
   displayName: "Project Manager Agent"
   categories: ["project-management"]
   tags: ["project-management", "risk", "scope", "timeline", "stakeholders", "coordination"]
-  worksWellWithAgents: ["engineering-manager", "scrum-master", "technical-pm", "technical-program-manager"]
-  worksWellWithSkills: ["program-status-report"]
+  worksWellWithAgents: ["engineering-manager", "scrum-master", "technical-pm", "technical-program-manager", "workflow-automator"]
+  worksWellWithSkills: ["okr-writing", "program-status-report"]
 ---
 
 # Project Manager

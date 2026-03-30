@@ -5,8 +5,8 @@ metadata:
   displayName: "Prompt Engineer Agent"
   categories: ["engineering", "data"]
   tags: ["prompts", "LLM", "evaluation", "chain-of-thought", "guardrails", "AI"]
-  worksWellWithAgents: ["ai-engineer", "ml-engineer"]
-  worksWellWithSkills: ["experiment-design", "prompt-engineering-guide", "test-plan-writing"]
+  worksWellWithAgents: ["ai-engineer", "ml-engineer", "voice-agent-designer"]
+  worksWellWithSkills: ["ai-prompt-writing", "code-generation-prompt", "experiment-design", "prompt-engineering-guide", "test-plan-writing"]
 ---
 
 # Prompt Engineer

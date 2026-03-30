@@ -5,8 +5,8 @@ metadata:
   displayName: "API Developer Agent"
   categories: ["engineering"]
   tags: ["api", "REST", "GraphQL", "SDK", "integration", "backwards-compatibility"]
-  worksWellWithAgents: ["developer-advocate", "frontend-engineer", "integration-engineer", "sales-engineer", "software-architect", "technical-writer"]
-  worksWellWithSkills: ["api-design-guide", "code-review-checklist", "integration-specification", "technical-spec-writing"]
+  worksWellWithAgents: ["frontend-engineer", "integration-engineer", "sales-engineer", "software-architect", "technical-writer"]
+  worksWellWithSkills: ["api-design-guide", "api-integration-guide", "code-review-checklist", "integration-specification", "technical-spec-writing"]
 ---
 
 # API Developer

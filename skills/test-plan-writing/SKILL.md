@@ -5,8 +5,8 @@ metadata:
   displayName: "Test Plan Writing"
   categories: ["engineering"]
   tags: ["testing", "test-plan", "coverage", "quality-assurance", "test-strategy"]
-  worksWellWithAgents: ["code-reviewer", "embedded-engineer", "mobile-engineer", "performance-engineer", "prompt-engineer", "qa-engineer", "test-strategist"]
-  worksWellWithSkills: ["performance-audit", "prd-writing", "prompt-engineering-guide", "ticket-writing"]
+  worksWellWithAgents: ["embedded-engineer", "mobile-engineer", "performance-engineer", "qa-engineer", "test-strategist"]
+  worksWellWithSkills: ["debugging-guide", "performance-audit", "prd-writing", "prompt-engineering-guide", "ticket-writing"]
 ---
 
 # Test Plan Writing

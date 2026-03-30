@@ -5,8 +5,8 @@ metadata:
   displayName: "Integration Specification"
   categories: ["engineering"]
   tags: ["integration", "specification", "API", "data-flow", "error-handling", "contracts"]
-  worksWellWithAgents: ["api-developer", "integration-engineer", "solutions-architect"]
-  worksWellWithSkills: ["api-design-guide", "system-design-document"]
+  worksWellWithAgents: ["api-developer", "api-tester", "integration-engineer", "no-code-builder", "solutions-architect"]
+  worksWellWithSkills: ["api-design-guide", "api-integration-guide", "automation-workflow-design", "system-design-document"]
 ---
 
 # Integration Specification

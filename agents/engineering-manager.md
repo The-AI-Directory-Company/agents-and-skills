@@ -5,7 +5,7 @@ metadata:
   displayName: "Engineering Manager Agent"
   categories: ["leadership", "engineering"]
   tags: ["engineering-management", "people-management", "team-building", "process", "career-growth"]
-  worksWellWithAgents: ["compliance-officer", "cto-advisor", "incident-commander", "instructional-designer", "people-ops-manager", "product-operations", "project-manager"]
+  worksWellWithAgents: ["cto-advisor", "incident-commander", "people-ops-manager", "product-operations", "project-manager"]
   worksWellWithSkills: ["employee-handbook-section", "incident-postmortem", "metrics-framework", "one-on-one-coaching", "program-status-report"]
 ---
 

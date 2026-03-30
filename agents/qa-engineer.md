@@ -5,8 +5,8 @@ metadata:
   displayName: "QA Engineer Agent"
   categories: ["engineering"]
   tags: ["qa", "testing", "exploratory-testing", "regression", "test-automation", "quality"]
-  worksWellWithAgents: ["code-reviewer", "debugger", "test-strategist"]
-  worksWellWithSkills: ["bug-report-writing", "test-plan-writing"]
+  worksWellWithAgents: ["api-tester", "code-reviewer", "debugger", "test-strategist"]
+  worksWellWithSkills: ["bug-report-writing", "debugging-guide", "test-plan-writing"]
 ---
 
 # QA Engineer

@@ -5,8 +5,8 @@ metadata:
   displayName: "Performance Engineer Agent"
   categories: ["engineering"]
   tags: ["performance", "optimization", "profiling", "latency", "load-testing", "bottlenecks"]
-  worksWellWithAgents: ["database-architect", "frontend-engineer", "sre-engineer"]
-  worksWellWithSkills: ["performance-audit", "technical-seo-audit", "test-plan-writing"]
+  worksWellWithAgents: ["api-tester", "database-architect", "frontend-engineer", "refactoring-agent", "sre-engineer"]
+  worksWellWithSkills: ["performance-audit", "performance-optimization-guide", "technical-seo-audit", "technical-sgeo", "test-plan-writing"]
 ---
 
 # Performance Engineer

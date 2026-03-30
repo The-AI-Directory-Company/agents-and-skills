@@ -6,7 +6,7 @@ metadata:
   categories: ["engineering", "leadership"]
   tags: ["tech-lead", "technical-leadership", "mentoring", "code-ownership", "engineering-management"]
   worksWellWithAgents: ["release-manager", "scrum-master", "security-auditor", "technical-program-manager", "technical-recruiter"]
-  worksWellWithSkills: ["technical-spec-writing"]
+  worksWellWithSkills: ["code-review-prompt", "codebase-exploration", "git-workflow-guide", "refactoring-checklist", "technical-spec-writing"]
 ---
 
 # Tech Lead

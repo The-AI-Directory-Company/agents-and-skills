@@ -5,8 +5,8 @@ metadata:
   displayName: "Debugger Agent"
   categories: ["engineering"]
   tags: ["debugging", "root-cause-analysis", "troubleshooting", "diagnostics", "testing"]
-  worksWellWithAgents: ["code-reviewer", "qa-engineer", "support-engineer", "test-strategist"]
-  worksWellWithSkills: ["bug-report-writing", "ticket-writing"]
+  worksWellWithAgents: ["autonomous-coding-agent", "code-reviewer", "qa-engineer", "support-engineer", "test-strategist"]
+  worksWellWithSkills: ["bug-report-writing", "debugging-guide", "ticket-writing"]
 ---
 
 # Debugger

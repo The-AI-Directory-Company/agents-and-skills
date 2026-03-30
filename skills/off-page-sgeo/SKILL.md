@@ -5,11 +5,24 @@ metadata:
   displayName: "Off-Page SGEO Authority"
   categories: ["business"]
   tags: ["SEO", "GEO", "SGEO", "backlinks", "authority", "digital-PR", "brand-mentions", "AI-visibility", "link-building"]
-  worksWellWithAgents: ["seo-specialist", "marketing-strategist", "content-strategist", "growth-engineer", "developer-advocate"]
-  worksWellWithSkills: ["technical-sgeo", "on-page-sgeo", "content-sgeo", "go-to-market-plan", "technical-seo-audit"]
+  worksWellWithAgents: ["content-strategist", "developer-advocate", "growth-engineer", "marketing-strategist", "seo-specialist"]
+  worksWellWithSkills: ["content-sgeo", "discovery-gseo", "go-to-market-plan", "on-page-sgeo", "technical-sgeo"]
 ---
 
 # Off-Page SGEO Authority
+
+## Before you start
+
+Gather the following from the user. If anything is missing, ask before proceeding:
+
+1. **What is the business domain and URL?** (Primary website to build authority for)
+2. **What is the current backlink profile?** (Number of referring domains, domain authority/rating if known — check Ahrefs, Moz, or Semrush)
+3. **Where does the brand already have presence?** (LinkedIn, Reddit, YouTube, Twitter/X, GitHub, industry forums — list all active accounts)
+4. **What content assets are available for promotion?** (Guides, free tools, original research, data studies, templates)
+5. **Who are the main competitors?** (3-5 domains that already have authority in your space)
+6. **What is the budget for outreach and PR?** (None, small <$500/mo, moderate $500-2000/mo, significant >$2000/mo)
+7. **Is AI citation a priority?** (Whether appearing in ChatGPT, Perplexity, Claude, Gemini responses matters for the business)
+8. **What is the industry/niche?** (Determines which communities, publications, and platforms matter most)
 
 ## Tool discovery
 
@@ -35,19 +48,6 @@ Ask the user directly — do not assume access to any external service.
 3. Pass the inventory to scripts as context
 4. Fall back gracefully — every check has a free-tier path using WebFetch/WebSearch
 
-## Before you start
-
-Gather the following from the user. If anything is missing, ask before proceeding:
-
-1. **What is the business domain and URL?** (Primary website to build authority for)
-2. **What is the current backlink profile?** (Number of referring domains, domain authority/rating if known — check Ahrefs, Moz, or Semrush)
-3. **Where does the brand already have presence?** (LinkedIn, Reddit, YouTube, Twitter/X, GitHub, industry forums — list all active accounts)
-4. **What content assets are available for promotion?** (Guides, free tools, original research, data studies, templates)
-5. **Who are the main competitors?** (3-5 domains that already have authority in your space)
-6. **What is the budget for outreach and PR?** (None, small <$500/mo, moderate $500-2000/mo, significant >$2000/mo)
-7. **Is AI citation a priority?** (Whether appearing in ChatGPT, Perplexity, Claude, Gemini responses matters for the business)
-8. **What is the industry/niche?** (Determines which communities, publications, and platforms matter most)
-
 ## Off-page SGEO procedure
 
 ### Step 1: Backlink Strategy
@@ -70,7 +70,7 @@ Quality over quantity — one link from a respected industry site is worth more 
 - **Guest posting** on relevant industry blogs. Provide genuine value — a unique angle, original data, or expert perspective. Not link drops disguised as articles.
 - **Resource page outreach.** Find "useful links" or "resources" pages in your niche using search operators like `intitle:"resources" [your topic]`. Suggest your content where it genuinely fits.
 - **Broken link building.** Use Ahrefs or Check My Links to find broken links on relevant sites. Create or identify your content that serves as a replacement. Contact the site owner with the fix.
-- **HARO / Connectively responses.** Journalists post queries seeking expert quotes. Respond within 2 hours with a concise, quotable answer and your credentials. Include 1-2 data points.
+- **Journalist query platforms (Qwoted, Featured.com, Terkel).** Journalists post queries seeking expert quotes. Respond within 2 hours with a concise, quotable answer and your credentials. Include 1-2 data points. (Note: HARO and Connectively, previously the dominant platforms in this space, were discontinued in 2023-2024.)
 - **Skyscraper technique.** Find the top-ranking content for your target keyword. Create something measurably better (more current data, broader scope, better examples). Outreach to sites linking to the original with a specific reason yours is more useful.
 
 **Backlink tracking template:**
@@ -302,11 +302,11 @@ Track the compounding effect: off-page authority builds slowly (expect 3-6 month
 
 ## Available scripts
 
-Start with `scripts/probe-ai-visibility.py` to establish your AI citation baseline, then measure monthly to track the impact of your authority-building efforts.
+Start with `scripts/probe-ai-visibility.py` to establish your AI citation baseline, then measure monthly to track the impact of your authority-building efforts. The script generates a structured check plan with per-platform instructions. You must execute the manual verification steps for each platform listed in the output.
 
 | Script | What it does | Run it when |
 |--------|-------------|-------------|
-| `probe-ai-visibility.py` | Tests queries against AI platforms, records brand citations and competitor citations. **Key measurement script.** | Baseline + monthly |
+| `probe-ai-visibility.py` | Generates a structured check plan (JSON) with per-platform instructions for testing AI visibility. Does not execute checks directly — the agent must perform the manual verification steps for ChatGPT, Claude, and Gemini listed in the output. **Key measurement script.** | Baseline + monthly |
 | `check-backlink-profile.py` | Estimates backlink profile via WebSearch or paid APIs. Identifies top referring domains. | Baseline + quarterly |
 | `monitor-brand-mentions.py` | Finds brand mentions across web, Reddit, HN, LinkedIn. Classifies as linked/unlinked and by sentiment. | Monthly |
 | `audit-platform-presence.py` | Checks brand presence on 7 AI-cited platforms. Identifies gaps and priorities. | Baseline + quarterly |

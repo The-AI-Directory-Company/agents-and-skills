@@ -5,8 +5,8 @@ metadata:
   displayName: "Incident Postmortem"
   categories: ["operations", "engineering"]
   tags: ["incidents", "postmortem", "blameless", "reliability", "incident-response"]
-  worksWellWithAgents: ["devops-engineer", "engineering-manager", "incident-commander", "release-manager", "site-reliability-architect", "sre-engineer"]
-  worksWellWithSkills: ["disaster-recovery-plan", "runbook-writing", "ticket-writing"]
+  worksWellWithAgents: ["devops-engineer", "engineering-manager", "incident-commander", "site-reliability-architect", "sre-engineer"]
+  worksWellWithSkills: ["debugging-guide", "disaster-recovery-plan", "runbook-writing", "ticket-writing"]
 ---
 
 # Incident Postmortem

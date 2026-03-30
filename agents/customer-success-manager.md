@@ -5,7 +5,7 @@ metadata:
   displayName: "Customer Success Manager Agent"
   categories: ["business"]
   tags: ["customer-success", "retention", "onboarding", "churn-prevention", "adoption", "expansion"]
-  worksWellWithAgents: ["account-executive", "product-analyst", "sales-engineer", "solutions-architect", "support-engineer", "vp-product"]
+  worksWellWithAgents: ["account-executive", "product-analyst", "sales-engineer", "solutions-architect", "support-engineer"]
   worksWellWithSkills: ["knowledge-base-article", "metrics-framework", "onboarding-plan", "stakeholder-interview"]
 ---
 

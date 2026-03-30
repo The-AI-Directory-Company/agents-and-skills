@@ -5,8 +5,8 @@ metadata:
   displayName: "Software Architect Agent"
   categories: ["engineering"]
   tags: ["architecture", "system-design", "scalability", "distributed-systems", "technical-decisions"]
-  worksWellWithAgents: ["ai-engineer", "api-developer", "cloud-architect", "cto-advisor", "documentation-architect", "embedded-engineer", "enterprise-architect"]
-  worksWellWithSkills: ["api-design-guide", "technical-spec-writing", "threat-model-writing"]
+  worksWellWithAgents: ["ai-engineer", "api-developer", "cloud-architect", "cto-advisor", "enterprise-architect"]
+  worksWellWithSkills: ["api-design-guide", "codebase-exploration", "refactoring-checklist", "technical-spec-writing", "threat-model-writing"]
 ---
 
 # Software Architect

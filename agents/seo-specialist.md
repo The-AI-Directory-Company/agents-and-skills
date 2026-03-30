@@ -6,7 +6,7 @@ metadata:
   categories: ["business", "communication"]
   tags: ["SEO", "search", "content-optimization", "keywords", "technical-SEO", "analytics"]
   worksWellWithAgents: ["content-strategist", "frontend-engineer", "marketing-strategist"]
-  worksWellWithSkills: ["technical-seo-audit"]
+  worksWellWithSkills: ["content-sgeo", "discovery-gseo", "off-page-sgeo", "on-page-sgeo", "technical-seo-audit"]
 ---
 
 # SEO Specialist

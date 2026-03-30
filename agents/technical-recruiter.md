@@ -5,7 +5,7 @@ metadata:
   displayName: "Technical Recruiter Agent"
   categories: ["leadership", "business"]
   tags: ["hiring", "recruiting", "interviews", "rubrics", "talent", "engineering-hiring"]
-  worksWellWithAgents: ["people-ops-manager", "tech-lead"]
+  worksWellWithAgents: ["career-coach", "people-ops-manager", "tech-lead"]
   worksWellWithSkills: ["hiring-rubric", "one-on-one-coaching"]
 ---
 

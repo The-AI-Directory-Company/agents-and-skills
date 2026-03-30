@@ -74,8 +74,8 @@ def build_opportunity_queries(topic, domain):
         ],
         "journalist_queries": [
             {
-                "query": f'site:connectively.us {topic}',
-                "purpose": "Find current journalist queries on Connectively (formerly HARO)",
+                "query": f'site:qwoted.com {topic} OR site:featured.com {topic} OR site:terkel.io {topic}',
+                "purpose": "Find current journalist queries on Qwoted, Featured.com, or Terkel (HARO and Connectively were discontinued in 2023-2024)",
             },
             {
                 "query": f'{topic} "looking for sources" OR "seeking experts"',

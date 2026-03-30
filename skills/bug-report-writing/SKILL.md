@@ -6,7 +6,7 @@ metadata:
   categories: ["engineering"]
   tags: ["bugs", "bug-reports", "reproduction", "debugging", "quality-assurance"]
   worksWellWithAgents: ["code-reviewer", "debugger", "qa-engineer", "support-engineer", "test-strategist"]
-  worksWellWithSkills: ["code-review-checklist", "knowledge-base-article", "ticket-writing"]
+  worksWellWithSkills: ["code-review-checklist", "code-review-prompt", "debugging-guide", "knowledge-base-article", "ticket-writing"]
 ---
 
 # Bug Report Writing
