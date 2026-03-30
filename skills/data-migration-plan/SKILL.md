@@ -5,7 +5,7 @@ metadata:
   displayName: "Data Migration Plan"
   categories: ["engineering", "data"]
   tags: ["migration", "data", "schema", "rollback", "database", "ETL"]
-  worksWellWithAgents: ["data-engineer", "database-architect"]
+  worksWellWithAgents: ["code-migrator", "data-engineer", "database-architect", "database-migrator"]
   worksWellWithSkills: ["system-design-document", "ticket-writing"]
 ---
 

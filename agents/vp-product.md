@@ -5,8 +5,8 @@ metadata:
   displayName: "VP of Product Agent"
   categories: ["product-management"]
   tags: ["strategy", "roadmapping", "stakeholder-management", "prioritization"]
-  worksWellWithAgents: ["business-analyst", "content-strategist", "cto-advisor", "customer-success-manager", "financial-analyst", "management-consultant", "pricing-strategist"]
-  worksWellWithSkills: ["go-to-market-plan", "pricing-analysis"]
+  worksWellWithAgents: ["business-analyst", "cto-advisor", "financial-analyst", "management-consultant", "pricing-strategist"]
+  worksWellWithSkills: ["competitive-analysis", "create-agent-markdown", "go-to-market-plan", "okr-writing", "pricing-analysis"]
 ---
 
 # VP of Product

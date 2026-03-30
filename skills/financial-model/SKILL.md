@@ -5,8 +5,8 @@ metadata:
   displayName: "Financial Model"
   categories: ["business"]
   tags: ["finance", "modeling", "DCF", "unit-economics", "projections", "business-case"]
-  worksWellWithAgents: ["cto-advisor", "financial-analyst", "pricing-strategist"]
-  worksWellWithSkills: ["metrics-framework", "prd-writing"]
+  worksWellWithAgents: ["cto-advisor", "financial-analyst", "pricing-strategist", "startup-advisor"]
+  worksWellWithSkills: ["metrics-framework", "prd-writing", "startup-pitch-deck"]
 ---
 
 # Financial Model

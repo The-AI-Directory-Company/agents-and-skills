@@ -5,8 +5,8 @@ metadata:
   displayName: "Brand Manager Agent"
   categories: ["business", "communication"]
   tags: ["brand", "identity", "positioning", "visual-identity", "brand-guidelines", "consistency"]
-  worksWellWithAgents: ["content-strategist", "copywriter", "marketing-strategist"]
-  worksWellWithSkills: ["brand-guidelines", "prd-writing", "stakeholder-interview"]
+  worksWellWithAgents: ["content-strategist", "copywriter", "marketing-strategist", "social-media-manager"]
+  worksWellWithSkills: ["brand-guidelines", "prd-writing", "social-media-content-plan", "stakeholder-interview"]
 ---
 
 # Brand Manager

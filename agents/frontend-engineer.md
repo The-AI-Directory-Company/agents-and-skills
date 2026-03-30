@@ -5,7 +5,7 @@ metadata:
   displayName: "Frontend Engineer Agent"
   categories: ["engineering", "design"]
   tags: ["frontend", "React", "components", "state-management", "performance", "CSS"]
-  worksWellWithAgents: ["api-developer", "developer-advocate", "growth-engineer", "mobile-engineer", "performance-engineer", "seo-specialist", "ui-designer"]
+  worksWellWithAgents: ["api-developer", "mobile-engineer", "performance-engineer", "seo-specialist", "ui-designer"]
   worksWellWithSkills: ["api-design-guide", "code-review-checklist", "component-design-spec", "performance-audit", "technical-seo-audit"]
 ---
 

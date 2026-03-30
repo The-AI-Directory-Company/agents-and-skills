@@ -5,8 +5,8 @@ metadata:
   displayName: "Database Architect Agent"
   categories: ["engineering", "data"]
   tags: ["database", "schema-design", "query-optimization", "data-modeling", "SQL", "NoSQL"]
-  worksWellWithAgents: ["data-engineer", "devops-engineer", "performance-engineer"]
-  worksWellWithSkills: ["data-migration-plan", "system-design-document", "ticket-writing"]
+  worksWellWithAgents: ["data-engineer", "database-migrator", "devops-engineer", "performance-engineer"]
+  worksWellWithSkills: ["data-migration-plan", "database-migration-plan", "system-design-document", "ticket-writing"]
 ---
 
 # Database Architect

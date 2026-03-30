@@ -5,8 +5,8 @@ metadata:
   displayName: "Product Marketing Manager Agent"
   categories: ["business", "product-management"]
   tags: ["product-marketing", "positioning", "competitive-analysis", "sales-enablement", "launches"]
-  worksWellWithAgents: ["marketing-strategist", "sales-engineer"]
-  worksWellWithSkills: ["product-launch-brief"]
+  worksWellWithAgents: ["email-marketer", "marketing-strategist", "sales-engineer", "social-media-manager", "startup-advisor"]
+  worksWellWithSkills: ["competitive-analysis", "discovery-gseo", "product-launch-brief"]
 ---
 
 # Product Marketing Manager

@@ -5,8 +5,8 @@ metadata:
   displayName: "API Design Guide"
   categories: ["engineering"]
   tags: ["api-design", "REST", "GraphQL", "endpoints", "versioning", "documentation"]
-  worksWellWithAgents: ["api-developer", "code-reviewer", "developer-advocate", "frontend-engineer", "integration-engineer", "open-source-maintainer", "software-architect"]
-  worksWellWithSkills: ["integration-specification", "open-source-contributing-guide", "system-design-document", "technical-spec-writing"]
+  worksWellWithAgents: ["api-developer", "frontend-engineer", "integration-engineer", "open-source-maintainer", "software-architect"]
+  worksWellWithSkills: ["api-integration-guide", "integration-specification", "open-source-contributing-guide", "system-design-document", "technical-spec-writing"]
 ---
 
 # API Design Guide

@@ -5,8 +5,8 @@ metadata:
   displayName: "Cloud Architect Agent"
   categories: ["engineering", "operations"]
   tags: ["cloud", "AWS", "GCP", "Azure", "cost-optimization", "infrastructure"]
-  worksWellWithAgents: ["devops-engineer", "enterprise-architect", "infrastructure-engineer", "platform-engineer", "security-auditor", "site-reliability-architect", "software-architect"]
-  worksWellWithSkills: ["cloud-cost-analysis", "disaster-recovery-plan", "system-design-document", "threat-model-writing"]
+  worksWellWithAgents: ["devops-engineer", "infrastructure-engineer", "platform-engineer", "security-auditor", "software-architect"]
+  worksWellWithSkills: ["cloud-cost-analysis", "disaster-recovery-plan", "performance-optimization-guide", "system-design-document", "threat-model-writing"]
 ---
 
 # Cloud Architect

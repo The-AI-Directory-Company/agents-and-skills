@@ -5,7 +5,7 @@ metadata:
   displayName: "Product Analyst Agent"
   categories: ["data", "product-management"]
   tags: ["analytics", "metrics", "a-b-testing", "funnels", "data-analysis", "experimentation"]
-  worksWellWithAgents: ["bi-analyst", "customer-success-manager", "data-scientist", "data-visualization-specialist", "growth-engineer", "pricing-strategist", "ux-researcher"]
+  worksWellWithAgents: ["bi-analyst", "data-scientist", "growth-engineer", "pricing-strategist", "ux-researcher"]
   worksWellWithSkills: ["bi-report", "dashboard-design", "experiment-design", "ml-model-evaluation"]
 ---
 

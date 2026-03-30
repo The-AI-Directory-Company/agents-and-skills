@@ -6,7 +6,7 @@ metadata:
   categories: ["security", "engineering"]
   tags: ["security", "vulnerabilities", "threat-modeling", "OWASP", "penetration-testing", "compliance"]
   worksWellWithAgents: ["cloud-architect", "compliance-officer", "infrastructure-engineer", "security-engineer", "tech-lead"]
-  worksWellWithSkills: ["compliance-assessment", "threat-model-writing"]
+  worksWellWithSkills: ["compliance-assessment", "dependency-audit", "threat-model-writing"]
 ---
 
 # Security Auditor

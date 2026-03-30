@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/api-error-envelope.json",
+  "title": "API Error Envelope",
+  "description": "Standard error response format for REST APIs. All error responses must conform to this schema.",
+  "type": "object",
+  "required": ["error"],
+  "additionalProperties": false,
+  "properties": {
+    "error": {
+      "type": "object",
+      "required": ["code", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Machine-readable error code. UPPER_SNAKE_CASE. Used by clients for programmatic error handling.",
+          "pattern": "^[A-Z][A-Z0-9_]*$",
+          "examples": [
+            "VALIDATION_ERROR",
+            "NOT_FOUND",
+            "UNAUTHORIZED",
+            "FORBIDDEN",
+            "CONFLICT",
+            "RATE_LIMITED",
+            "INTERNAL_ERROR"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error description. Safe to display to end users. Do not include internal details, stack traces, or database errors.",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "details": {
+          "type": "array",
+          "description": "Optional array of granular error details. Used for validation errors with multiple fields or batch operations with partial failures.",
+          "items": {
+            "type": "object",
+            "required": ["reason"],
+            "properties": {
+              "field": {
+                "type": "string",
+                "description": "Dot-notation path to the field that caused the error (e.g., 'address.zip_code')."
+              },
+              "reason": {
+                "type": "string",
+                "description": "Human-readable explanation of why this specific field or item failed.",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "value": {
+                "description": "The rejected value, if safe to echo back. Omit for sensitive fields (passwords, tokens)."
+              },
+              "index": {
+                "type": "integer",
+                "description": "For batch operations: the zero-based index of the failed item in the request array.",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "request_id": {
+          "type": "string",
+          "description": "Unique identifier for this request. Use for cross-referencing with server-side logs and support tickets.",
+          "pattern": "^req_[a-zA-Z0-9]+$",
+          "examples": ["req_7xk29mT4", "req_abc123"]
+        },
+        "doc_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URL to documentation explaining this error and how to resolve it."
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Request body contains invalid fields.",
+        "details": [
+          {
+            "field": "email",
+            "reason": "Must be a valid email address.",
+            "value": "not-an-email"
+          },
+          {
+            "field": "age",
+            "reason": "Must be a positive integer.",
+            "value": -5
+          }
+        ],
+        "request_id": "req_7xk29mT4",
+        "doc_url": "https://api.example.com/docs/errors#validation-error"
+      }
+    },
+    {
+      "error": {
+        "code": "NOT_FOUND",
+        "message": "The requested user does not exist.",
+        "request_id": "req_abc123"
+      }
+    },
+    {
+      "error": {
+        "code": "RATE_LIMITED",
+        "message": "Request limit exceeded. Retry after 45 seconds.",
+        "request_id": "req_def456"
+      }
+    }
+  ]
+}

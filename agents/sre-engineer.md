@@ -6,7 +6,7 @@ metadata:
   categories: ["operations", "engineering"]
   tags: ["sre", "reliability", "incident-response", "monitoring", "SLOs", "observability"]
   worksWellWithAgents: ["incident-commander", "infrastructure-engineer", "performance-engineer", "release-manager", "site-reliability-architect"]
-  worksWellWithSkills: ["disaster-recovery-plan", "incident-postmortem", "performance-audit", "runbook-writing"]
+  worksWellWithSkills: ["debugging-guide", "disaster-recovery-plan", "incident-postmortem", "performance-audit", "runbook-writing"]
 ---
 
 # SRE Engineer

@@ -6,7 +6,7 @@ metadata:
   categories: ["project-management"]
   tags: ["sprint-planning", "agile", "backlog", "capacity", "commitment"]
   worksWellWithAgents: ["scrum-master", "technical-pm"]
-  worksWellWithSkills: ["ticket-writing", "user-story-mapping"]
+  worksWellWithSkills: ["okr-writing", "ticket-writing", "user-story-mapping"]
 ---
 
 # Sprint Planning Guide

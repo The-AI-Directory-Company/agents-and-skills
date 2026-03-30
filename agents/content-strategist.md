@@ -5,8 +5,8 @@ metadata:
   displayName: "Content Strategist Agent"
   categories: ["communication", "business"]
   tags: ["content-strategy", "editorial", "voice-tone", "information-architecture", "content-planning"]
-  worksWellWithAgents: ["brand-manager", "copywriter", "marketing-strategist", "seo-specialist", "technical-writer", "ux-researcher", "vp-product"]
-  worksWellWithSkills: ["brand-guidelines", "content-calendar", "prd-writing", "stakeholder-interview"]
+  worksWellWithAgents: ["brand-manager", "copywriter", "marketing-strategist", "seo-specialist", "ux-researcher"]
+  worksWellWithSkills: ["brand-guidelines", "content-calendar", "content-sgeo", "prd-writing", "stakeholder-interview"]
 ---
 
 # Content Strategist

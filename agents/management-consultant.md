@@ -5,7 +5,7 @@ metadata:
   displayName: "Management Consultant Agent"
   categories: ["business", "leadership"]
   tags: ["consulting", "strategy", "frameworks", "analysis", "recommendations", "problem-solving"]
-  worksWellWithAgents: ["business-analyst", "cto-advisor", "vp-product"]
+  worksWellWithAgents: ["business-analyst", "career-coach", "cto-advisor", "vp-product"]
   worksWellWithSkills: []
 ---
 

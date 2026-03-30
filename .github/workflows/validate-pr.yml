@@ -152,6 +152,8 @@ jobs:
                       elif not all(isinstance(s, str) for s in meta[ref_field]):
                           errors.append(f"Field 'metadata.{ref_field}' must contain only strings")
                       else:
+                          if len(meta[ref_field]) > 5:
+                              errors.append(f"Too many entries in metadata.{ref_field}: found {len(meta[ref_field])} (max 5). Keep only the strongest complementary relationships.")
                           for slug in meta[ref_field]:
                               if not re.match(r"^[a-z][a-z0-9-]*$", slug):
                                   errors.append(f"Invalid slug in metadata.{ref_field}: '{slug}' (must be lowercase-hyphenated)")

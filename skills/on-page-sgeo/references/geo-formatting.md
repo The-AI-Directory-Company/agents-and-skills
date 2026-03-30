@@ -169,12 +169,12 @@ Problems: No specific data, no named source, "many experts" is unfalsifiable vag
 
 **Strong:**
 ```
-Internal linking passes PageRank between pages and helps search engines
-discover content. Sites that increase internal links to key pages by 40%
-see a median ranking improvement of 3.2 positions within 60 days,
-according to a 2025 Ahrefs study of 14,000 domains.
+Internal linking passes PageRank between pages and reduces average crawl
+depth. A 2024 Botify analysis of 6.2 billion pages found that pages at
+crawl depth 3 or less were indexed 5x faster than pages at depth 6+,
+and reducing crawl depth by two levels increased page discovery rate by 31%.
 ```
-Why it works: Topic sentence names the mechanism. Data point is specific (40%, 3.2 positions, 60 days). Source is named (Ahrefs, 14,000 domains).
+Why it works: Topic sentence names the mechanism. Data point is specific (5x faster, 31%, depth thresholds). Source is named (Botify, 6.2 billion pages).
 
 **Weak:**
 ```
@@ -201,8 +201,9 @@ online. This trend is expected to continue.
 
 **Strong:**
 ```
-AI-referred website sessions jumped 527% year-over-year in the first five
-months of 2025. ChatGPT alone reaches 800+ million weekly users, and
+According to BrightEdge research, AI-referred website sessions grew over
+500% year-over-year in the first half of 2025. ChatGPT alone reaches
+800+ million weekly users, and
 Perplexity processes 780+ million queries per month. Meanwhile, ~60% of
 Google searches now end without a click, driven partly by AI Overviews
 appearing in 18.5% of commercial queries.

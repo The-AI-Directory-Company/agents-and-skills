@@ -5,8 +5,8 @@ metadata:
   displayName: "Metrics Framework"
   categories: ["data", "product-management"]
   tags: ["metrics", "KPIs", "measurement", "dashboards", "analytics", "OKRs"]
-  worksWellWithAgents: ["account-executive", "bi-analyst", "customer-success-manager", "data-scientist", "data-visualization-specialist", "engineering-manager", "financial-analyst"]
-  worksWellWithSkills: ["bi-report", "dashboard-design", "experiment-design", "financial-model", "go-to-market-plan", "ml-model-evaluation", "prd-writing", "pricing-analysis"]
+  worksWellWithAgents: ["bi-analyst", "data-scientist", "data-visualization-specialist", "engineering-manager", "financial-analyst"]
+  worksWellWithSkills: ["bi-report", "dashboard-design", "experiment-design", "financial-model", "prd-writing"]
 ---
 
 # Metrics Framework

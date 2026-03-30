@@ -5,8 +5,8 @@ metadata:
   displayName: "CTO Advisor Agent"
   categories: ["leadership", "engineering"]
   tags: ["CTO", "technology-strategy", "engineering-org", "technical-vision", "build-vs-buy"]
-  worksWellWithAgents: ["engineering-manager", "enterprise-architect", "financial-analyst", "management-consultant", "software-architect", "vp-product"]
-  worksWellWithSkills: ["architecture-decision-record", "financial-model", "prd-writing", "system-design-document"]
+  worksWellWithAgents: ["engineering-manager", "enterprise-architect", "management-consultant", "software-architect", "vp-product"]
+  worksWellWithSkills: ["architecture-decision-record", "financial-model", "prd-writing", "startup-pitch-deck", "system-design-document"]
 ---
 
 # CTO Advisor

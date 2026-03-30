@@ -5,8 +5,8 @@ metadata:
   displayName: "Stakeholder Interview Guide"
   categories: ["business", "product-management"]
   tags: ["interviews", "requirements", "stakeholders", "elicitation", "discovery"]
-  worksWellWithAgents: ["account-executive", "brand-manager", "business-analyst", "content-strategist", "contract-reviewer", "customer-success-manager", "instructional-designer"]
-  worksWellWithSkills: ["content-calendar", "hiring-rubric", "prd-writing", "sales-demo-script", "sales-playbook", "user-story-mapping"]
+  worksWellWithAgents: ["account-executive", "brand-manager", "business-analyst", "content-strategist", "customer-success-manager"]
+  worksWellWithSkills: ["content-calendar", "hiring-rubric", "prd-writing", "sales-playbook", "user-story-mapping"]
 ---
 
 # Stakeholder Interview Guide

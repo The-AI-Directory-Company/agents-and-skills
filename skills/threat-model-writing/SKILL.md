@@ -6,7 +6,7 @@ metadata:
   categories: ["security", "engineering"]
   tags: ["threat-modeling", "STRIDE", "security", "risk-assessment", "attack-surface"]
   worksWellWithAgents: ["cloud-architect", "compliance-officer", "security-auditor", "security-engineer", "software-architect"]
-  worksWellWithSkills: ["compliance-assessment", "prd-writing", "system-design-document"]
+  worksWellWithSkills: ["compliance-assessment", "dependency-audit", "prd-writing", "system-design-document"]
 ---
 
 # Threat Model Writing

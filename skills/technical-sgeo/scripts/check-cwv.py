@@ -108,7 +108,7 @@ def extract_field_data(data):
         field["cls_status"] = classify_metric(cls_value, "cls")
 
     # TTFB
-    ttfb = metrics.get("EXPERIMENTAL_TIME_TO_FIRST_BYTE", {})
+    ttfb = metrics.get("TIME_TO_FIRST_BYTE") or metrics.get("EXPERIMENTAL_TIME_TO_FIRST_BYTE", {})
     if ttfb.get("percentile"):
         field["ttfb_ms"] = ttfb["percentile"]
         field["ttfb_status"] = classify_metric(ttfb["percentile"], "ttfb")

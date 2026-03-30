@@ -5,7 +5,7 @@ metadata:
   displayName: "Technical Writer Agent"
   categories: ["communication", "engineering"]
   tags: ["documentation", "technical-writing", "api-docs", "tutorials", "developer-experience"]
-  worksWellWithAgents: ["api-developer", "code-reviewer", "content-strategist", "developer-advocate", "documentation-architect", "instructional-designer", "open-source-maintainer"]
+  worksWellWithAgents: ["content-strategist", "developer-advocate", "documentation-architect", "instructional-designer", "open-source-maintainer"]
   worksWellWithSkills: ["content-calendar", "knowledge-base-article", "onboarding-plan", "open-source-contributing-guide"]
 ---
 

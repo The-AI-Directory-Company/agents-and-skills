@@ -5,8 +5,8 @@ metadata:
   displayName: "Solutions Architect Agent"
   categories: ["business", "engineering"]
   tags: ["solutions-architecture", "integrations", "technical-sales", "platform", "enterprise"]
-  worksWellWithAgents: ["account-executive", "business-analyst", "compliance-officer", "contract-reviewer", "customer-success-manager", "integration-engineer", "sales-engineer"]
-  worksWellWithSkills: ["compliance-assessment", "contract-review-checklist", "integration-specification", "sales-demo-script"]
+  worksWellWithAgents: ["account-executive", "business-analyst", "customer-success-manager", "integration-engineer", "sales-engineer"]
+  worksWellWithSkills: ["api-integration-guide", "compliance-assessment", "contract-review-checklist", "integration-specification", "sales-demo-script"]
 ---
 
 # Solutions Architect

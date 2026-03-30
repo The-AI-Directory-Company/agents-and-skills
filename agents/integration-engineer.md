@@ -5,8 +5,8 @@ metadata:
   displayName: "Integration Engineer Agent"
   categories: ["engineering"]
   tags: ["integration", "APIs", "webhooks", "middleware", "data-sync", "orchestration"]
-  worksWellWithAgents: ["api-developer", "data-engineer", "solutions-architect"]
-  worksWellWithSkills: ["api-design-guide", "integration-specification"]
+  worksWellWithAgents: ["api-developer", "data-engineer", "no-code-builder", "solutions-architect", "voice-agent-designer"]
+  worksWellWithSkills: ["api-design-guide", "api-integration-guide", "automation-workflow-design", "integration-specification"]
 ---
 
 # Integration Engineer

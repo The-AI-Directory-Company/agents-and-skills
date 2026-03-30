@@ -5,7 +5,7 @@ metadata:
   displayName: "One-on-One Coaching"
   categories: ["leadership"]
   tags: ["one-on-one", "coaching", "feedback", "career-growth", "management", "SBI"]
-  worksWellWithAgents: ["engineering-manager", "people-ops-manager", "technical-recruiter"]
+  worksWellWithAgents: ["career-coach", "engineering-manager", "people-ops-manager", "technical-recruiter"]
   worksWellWithSkills: ["hiring-rubric", "onboarding-plan", "ticket-writing"]
 ---
 

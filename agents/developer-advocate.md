@@ -5,7 +5,7 @@ metadata:
   displayName: "Developer Advocate Agent"
   categories: ["communication", "engineering"]
   tags: ["developer-relations", "devrel", "developer-experience", "community", "tutorials", "SDKs"]
-  worksWellWithAgents: ["api-developer", "developer-experience-engineer", "documentation-architect", "frontend-engineer", "instructional-designer", "open-source-maintainer", "technical-writer"]
+  worksWellWithAgents: ["api-developer", "developer-experience-engineer", "documentation-architect", "open-source-maintainer", "technical-writer"]
   worksWellWithSkills: ["api-design-guide", "content-calendar", "open-source-contributing-guide", "prd-writing", "sales-demo-script"]
 ---
 

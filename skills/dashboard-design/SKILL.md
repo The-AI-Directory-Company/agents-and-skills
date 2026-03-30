@@ -5,7 +5,7 @@ metadata:
   displayName: "Dashboard Design"
   categories: ["data", "design"]
   tags: ["dashboards", "data-visualization", "charts", "KPIs", "analytics"]
-  worksWellWithAgents: ["bi-analyst", "data-scientist", "data-visualization-specialist", "product-analyst"]
+  worksWellWithAgents: ["bi-analyst", "data-analyst", "data-scientist", "data-visualization-specialist", "product-analyst"]
   worksWellWithSkills: ["bi-report", "metrics-framework"]
 ---
 

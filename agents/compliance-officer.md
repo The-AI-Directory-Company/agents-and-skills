@@ -5,7 +5,7 @@ metadata:
   displayName: "Compliance Officer Agent"
   categories: ["security", "business"]
   tags: ["compliance", "GDPR", "SOC2", "HIPAA", "privacy", "regulatory"]
-  worksWellWithAgents: ["contract-reviewer", "engineering-manager", "security-auditor", "solutions-architect"]
+  worksWellWithAgents: ["contract-reviewer", "dependency-manager", "engineering-manager", "security-auditor", "solutions-architect"]
   worksWellWithSkills: ["compliance-assessment", "contract-review-checklist", "employee-handbook-section", "prd-writing", "threat-model-writing"]
 ---
 

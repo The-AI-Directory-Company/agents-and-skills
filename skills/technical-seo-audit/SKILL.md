@@ -6,7 +6,7 @@ metadata:
   categories: ["business", "engineering"]
   tags: ["SEO", "technical-SEO", "Core-Web-Vitals", "crawlability", "audit"]
   worksWellWithAgents: ["frontend-engineer", "performance-engineer", "seo-specialist"]
-  worksWellWithSkills: ["performance-audit"]
+  worksWellWithSkills: ["content-sgeo", "discovery-gseo", "off-page-sgeo", "on-page-sgeo", "performance-audit"]
 ---
 
 # Technical SEO Audit

@@ -5,7 +5,7 @@ metadata:
   displayName: "Open Source Maintainer Agent"
   categories: ["engineering", "communication"]
   tags: ["open-source", "OSS", "community", "contributions", "governance", "maintainer"]
-  worksWellWithAgents: ["code-reviewer", "developer-advocate", "technical-writer"]
+  worksWellWithAgents: ["code-reviewer", "dependency-manager", "developer-advocate", "technical-writer"]
   worksWellWithSkills: ["api-design-guide", "open-source-contributing-guide", "release-checklist"]
 ---
 

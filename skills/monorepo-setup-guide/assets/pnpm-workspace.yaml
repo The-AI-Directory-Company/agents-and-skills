@@ -1,0 +1,9 @@
+packages:
+  # Deployable applications
+  - "apps/*"
+
+  # Shared libraries consumed by apps and other packages
+  - "packages/*"
+
+  # Workspace-level tooling (scripts, generators, custom configs)
+  - "tooling/*"

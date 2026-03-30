@@ -5,8 +5,8 @@ metadata:
   displayName: "Marketing Strategist Agent"
   categories: ["business"]
   tags: ["marketing", "go-to-market", "positioning", "competitive-analysis", "campaigns", "growth"]
-  worksWellWithAgents: ["brand-manager", "content-strategist", "copywriter", "growth-engineer", "pricing-strategist", "product-marketing-manager", "seo-specialist"]
-  worksWellWithSkills: ["go-to-market-plan", "product-launch-brief", "sales-playbook"]
+  worksWellWithAgents: ["brand-manager", "content-strategist", "growth-engineer", "pricing-strategist", "seo-specialist"]
+  worksWellWithSkills: ["competitive-analysis", "content-sgeo", "go-to-market-plan", "product-launch-brief", "sales-playbook"]
 ---
 
 # Marketing Strategist

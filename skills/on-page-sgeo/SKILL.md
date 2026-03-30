@@ -3,10 +3,10 @@ name: on-page-sgeo
 description: Optimize individual pages for both search engine ranking and AI citation — covering title tags, meta descriptions, heading hierarchy, URL structure, internal linking, image optimization, structured data, direct-answer formatting, and knowledge block structure.
 metadata:
   displayName: "On-Page SGEO Optimization"
-  categories: ["business", "communication"]
-  tags: ["SEO", "GEO", "SGEO", "on-page-SEO", "meta-tags", "headings", "internal-linking", "AI-citation", "structured-data"]
-  worksWellWithAgents: ["seo-specialist", "content-strategist", "frontend-engineer", "copywriter"]
-  worksWellWithSkills: ["technical-sgeo", "content-sgeo", "off-page-sgeo", "technical-seo-audit"]
+  categories: ["business", "engineering"]
+  tags: ["SEO", "GEO", "SGEO", "on-page-seo", "meta-tags", "headings", "internal-linking", "AI-citation", "structured-data"]
+  worksWellWithAgents: ["content-strategist", "copywriter", "frontend-engineer", "seo-specialist"]
+  worksWellWithSkills: ["content-sgeo", "discovery-gseo", "off-page-sgeo", "technical-seo-audit", "technical-sgeo"]
 ---
 
 # On-Page SGEO Optimization
@@ -14,6 +14,19 @@ metadata:
 On-page SGEO (Search Generative Engine Optimization) is the practice of optimizing individual page elements so the page both ranks in traditional search results and gets cited by AI platforms (ChatGPT, Perplexity, Gemini, Copilot). Every section below addresses both dimensions together — SEO impact and GEO impact are not separate concerns.
 
 This is skill 2 of 4 in the SGEO series: technical-sgeo > **on-page-sgeo** > content-sgeo > off-page-sgeo.
+
+## Before you start
+
+Gather the following from the user. If anything is missing, ask before proceeding:
+
+1. **Target page URL** — The live URL being optimized, or a description of the page being created.
+2. **Primary keyword / topic** — The main query or subject the page should rank for and be cited on.
+3. **Search intent** — Informational, navigational, commercial, or transactional. This determines the optimal page structure.
+4. **Target audience** — Who this page is for (developers, marketers, executives, general consumers, etc.).
+5. **Existing performance data** — Google Search Console impressions, average position, CTR, and top queries if the page already exists. Omit for new pages.
+6. **AI citation priority** — Whether this page should be optimized for AI citation (high, medium, low). High priority pages get extra GEO formatting.
+7. **Related pages on the site** — Pages that should link to/from this one. Needed for internal linking recommendations.
+8. **Competitor pages ranking for the same keyword** — Top 3-5 URLs currently ranking, for gap analysis.
 
 ## Tool discovery
 
@@ -37,19 +50,6 @@ Before gathering project details, confirm which tools are available. Ask the use
 2. Record which tools are available
 3. Pass the inventory to scripts as context
 4. Fall back gracefully — every check has a free-tier path using WebFetch/WebSearch
-
-## Before you start
-
-Gather the following from the user. If anything is missing, ask before proceeding:
-
-1. **Target page URL** — The live URL being optimized, or a description of the page being created.
-2. **Primary keyword / topic** — The main query or subject the page should rank for and be cited on.
-3. **Search intent** — Informational, navigational, commercial, or transactional. This determines the optimal page structure.
-4. **Target audience** — Who this page is for (developers, marketers, executives, general consumers, etc.).
-5. **Existing performance data** — Google Search Console impressions, average position, CTR, and top queries if the page already exists. Omit for new pages.
-6. **AI citation priority** — Whether this page should be optimized for AI citation (high, medium, low). High priority pages get extra GEO formatting.
-7. **Related pages on the site** — Pages that should link to/from this one. Needed for internal linking recommendations.
-8. **Competitor pages ranking for the same keyword** — Top 3-5 URLs currently ranking, for gap analysis.
 
 ## On-page optimization template
 
@@ -355,7 +355,7 @@ Both search engines and AI engines weight content recency. A page last updated i
 
 ### 10. On-Page SGEO Audit Table
 
-> **Automate:** Run `scripts/audit-page.py --url <URL> --format md` to generate this table automatically. The orchestrator runs all 7 scripts and aggregates results.
+> **Automate:** Run `scripts/audit-page.py --url <URL> --format md` to generate this table automatically. The orchestrator runs all sub-scripts and aggregates results.
 
 Use this consolidated table to audit any existing page. Walk through each element, note the current state, and flag items that need work.
 
@@ -419,7 +419,7 @@ For a complete page audit, run `scripts/audit-page.py --url <URL>` — it runs a
 
 | Script | What it checks | Run it when |
 |--------|---------------|-------------|
-| `audit-page.py` | **Orchestrator** — runs all 7 scripts below, outputs audit table | You want a full on-page SGEO audit of any URL |
+| `audit-page.py` | **Orchestrator** — runs all sub-scripts below, outputs audit table | You want a full on-page SGEO audit of any URL |
 | `extract-meta-tags.py` | Title, meta description, OG tags, canonical, robots meta | Optimizing title/description or diagnosing CTR issues |
 | `analyze-headings.py` | Heading hierarchy, H1 count, question-format ratio, GEO score | Restructuring page headings or evaluating GEO readiness |
 | `check-direct-answer.py` | First 200 words, direct-answer scoring (0-8 rubric), meandering patterns | Evaluating whether a page's opening is citation-ready |

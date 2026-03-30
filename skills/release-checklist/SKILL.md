@@ -5,8 +5,8 @@ metadata:
   displayName: "Release Checklist"
   categories: ["operations", "engineering"]
   tags: ["release", "deployment", "checklist", "go-no-go", "rollout", "rollback"]
-  worksWellWithAgents: ["devops-engineer", "open-source-maintainer", "product-operations", "release-manager"]
-  worksWellWithSkills: ["runbook-writing", "ticket-writing"]
+  worksWellWithAgents: ["ci-cd-engineer", "devops-engineer", "open-source-maintainer", "product-operations", "release-manager"]
+  worksWellWithSkills: ["ci-cd-pipeline-design", "database-migration-plan", "dependency-audit", "runbook-writing", "ticket-writing"]
 ---
 
 # Release Checklist

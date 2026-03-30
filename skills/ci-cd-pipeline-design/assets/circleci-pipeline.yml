@@ -1,0 +1,271 @@
+# =============================================================================
+# CircleCI Pipeline
+# =============================================================================
+# Stages: lint -> test (parallel) -> build -> deploy-staging -> smoke-test -> deploy-prod
+#
+# Trigger rules:
+#   - PRs:        lint + test + build (no deploy)
+#   - Main:       lint + test + build + deploy staging + smoke test
+#   - Tags (v*):  Full pipeline including production deploy (with manual approval)
+# =============================================================================
+
+version: 2.1
+
+# ---------------------------------------------------------------------------
+# Orbs — reusable config packages
+# ---------------------------------------------------------------------------
+
+orbs:
+  node: circleci/node@5.2.0
+
+# ---------------------------------------------------------------------------
+# Executors
+# ---------------------------------------------------------------------------
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:20.12
+    working_directory: ~/project
+    resource_class: medium
+
+  node-executor-large:
+    docker:
+      - image: cimg/node:20.12
+    working_directory: ~/project
+    resource_class: large
+
+# ---------------------------------------------------------------------------
+# Commands — reusable step sequences
+# ---------------------------------------------------------------------------
+
+commands:
+  setup-pnpm:
+    description: "Install pnpm and project dependencies with cache"
+    steps:
+      - run:
+          name: Install pnpm
+          command: |
+            corepack enable
+            corepack prepare pnpm@9 --activate
+      - restore_cache:
+          keys:
+            - pnpm-deps-{{ checksum "pnpm-lock.yaml" }}
+            - pnpm-deps-
+      - run:
+          name: Install dependencies
+          command: pnpm install --frozen-lockfile
+      - save_cache:
+          key: pnpm-deps-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - node_modules
+            - ~/.local/share/pnpm/store
+
+# ---------------------------------------------------------------------------
+# Jobs
+# ---------------------------------------------------------------------------
+
+jobs:
+
+  # -------------------------------------------------------------------------
+  # Lint
+  # -------------------------------------------------------------------------
+  lint:
+    executor: node-executor
+    steps:
+      - checkout
+      - setup-pnpm
+      - run:
+          name: ESLint
+          command: pnpm lint
+      - run:
+          name: Prettier check
+          command: pnpm format:check
+
+  # -------------------------------------------------------------------------
+  # Test — uses CircleCI native parallelism with timing-based splitting
+  # -------------------------------------------------------------------------
+  test:
+    executor: node-executor-large
+    parallelism: 4
+    steps:
+      - checkout
+      - setup-pnpm
+      - run:
+          name: Split and run tests
+          command: |
+            TEST_FILES=$(circleci tests glob "**/*.test.ts" "**/*.test.tsx" "**/*.spec.ts" | circleci tests split --split-by=timings)
+            pnpm vitest run $TEST_FILES --reporter=junit --outputFile=test-results/results.xml
+          environment:
+            DATABASE_URL: "${TEST_DATABASE_URL}"
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: test-results
+
+  # -------------------------------------------------------------------------
+  # Build
+  # -------------------------------------------------------------------------
+  build:
+    executor: node-executor-large
+    steps:
+      - checkout
+      - setup-pnpm
+      - run:
+          name: Build
+          command: pnpm build
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - apps/web/.next
+            - apps/web/public
+
+  # -------------------------------------------------------------------------
+  # Deploy staging
+  # -------------------------------------------------------------------------
+  deploy-staging:
+    executor: node-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Deploy to staging
+          command: |
+            echo "Deploying build artifact to staging..."
+            # Replace with your deploy command:
+            # npx vercel deploy --prebuilt --token=$VERCEL_TOKEN
+            # aws s3 sync ./apps/web/.next s3://staging-bucket/
+
+  # -------------------------------------------------------------------------
+  # Smoke test
+  # -------------------------------------------------------------------------
+  smoke-test:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Health check
+          command: |
+            for i in 1 2 3 4 5; do
+              STATUS=$(curl -s -o /dev/null -w '%{http_code}' https://staging.example.com/api/health)
+              if [ "$STATUS" = "200" ]; then
+                echo "Health check passed (attempt $i)"
+                exit 0
+              fi
+              echo "Health check returned $STATUS, retrying in 10s..."
+              sleep 10
+            done
+            echo "Health check failed after 5 attempts"
+            exit 1
+      - run:
+          name: Critical path verification
+          command: |
+            URLS=(
+              "https://staging.example.com/"
+              "https://staging.example.com/login"
+              "https://staging.example.com/api/health"
+            )
+            for URL in "${URLS[@]}"; do
+              STATUS=$(curl -s -o /dev/null -w '%{http_code}' "$URL")
+              if [ "$STATUS" != "200" ]; then
+                echo "FAIL: $URL returned $STATUS"
+                exit 1
+              fi
+              echo "OK: $URL"
+            done
+
+  # -------------------------------------------------------------------------
+  # Deploy production
+  # -------------------------------------------------------------------------
+  deploy-prod:
+    executor: node-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Deploy to production
+          command: |
+            echo "Deploying build artifact to production..."
+            # Same artifact that passed staging smoke tests
+            # npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+      - run:
+          name: Post-deploy verification
+          command: |
+            sleep 15
+            STATUS=$(curl -s -o /dev/null -w '%{http_code}' https://app.example.com/api/health)
+            if [ "$STATUS" != "200" ]; then
+              echo "CRITICAL: Production health check failed with status $STATUS"
+              exit 1
+            fi
+            echo "Production deploy verified."
+
+# ---------------------------------------------------------------------------
+# Workflows
+# ---------------------------------------------------------------------------
+
+workflows:
+  version: 2
+
+  ci-cd:
+    jobs:
+      # --- Always run on PRs and pushes ---
+      - lint:
+          filters:
+            tags:
+              only: /^v.*/
+
+      - test:
+          filters:
+            tags:
+              only: /^v.*/
+
+      - build:
+          requires:
+            - lint
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+
+      # --- Deploy staging on main and tags ---
+      - deploy-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
+            tags:
+              only: /^v.*/
+
+      - smoke-test:
+          requires:
+            - deploy-staging
+          filters:
+            branches:
+              only: main
+            tags:
+              only: /^v.*/
+
+      # --- Production deploy: manual approval required ---
+      - approve-prod:
+          type: approval
+          requires:
+            - smoke-test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+
+      - deploy-prod:
+          requires:
+            - approve-prod
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/

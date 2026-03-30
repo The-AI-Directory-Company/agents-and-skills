@@ -5,8 +5,8 @@ metadata:
   displayName: "Compliance Assessment"
   categories: ["security", "business"]
   tags: ["compliance", "SOC2", "GDPR", "HIPAA", "ISO-27001", "audit"]
-  worksWellWithAgents: ["compliance-officer", "contract-reviewer", "security-auditor", "solutions-architect"]
-  worksWellWithSkills: ["contract-review-checklist", "employee-handbook-section", "threat-model-writing"]
+  worksWellWithAgents: ["compliance-officer", "contract-reviewer", "dependency-manager", "security-auditor", "solutions-architect"]
+  worksWellWithSkills: ["contract-review-checklist", "dependency-audit", "employee-handbook-section", "threat-model-writing"]
 ---
 
 # Compliance Assessment

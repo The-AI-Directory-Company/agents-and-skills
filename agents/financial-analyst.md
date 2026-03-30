@@ -5,8 +5,8 @@ metadata:
   displayName: "Financial Analyst Agent"
   categories: ["business"]
   tags: ["finance", "financial-modeling", "DCF", "unit-economics", "budgeting", "forecasting"]
-  worksWellWithAgents: ["cto-advisor", "pricing-strategist", "vp-product"]
-  worksWellWithSkills: ["financial-model", "metrics-framework"]
+  worksWellWithAgents: ["cto-advisor", "pricing-strategist", "startup-advisor", "vp-product"]
+  worksWellWithSkills: ["financial-model", "metrics-framework", "startup-pitch-deck"]
 ---
 
 # Financial Analyst

@@ -5,7 +5,7 @@ metadata:
   displayName: "Onboarding Plan"
   categories: ["leadership", "business"]
   tags: ["onboarding", "new-hire", "ramp-up", "training", "customer-onboarding"]
-  worksWellWithAgents: ["customer-success-manager", "instructional-designer", "people-ops-manager", "technical-writer"]
+  worksWellWithAgents: ["codebase-onboarder", "customer-success-manager", "instructional-designer", "people-ops-manager", "technical-writer"]
   worksWellWithSkills: ["employee-handbook-section", "one-on-one-coaching", "training-curriculum"]
 ---
 

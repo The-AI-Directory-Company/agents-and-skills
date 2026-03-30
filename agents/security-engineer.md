@@ -5,8 +5,8 @@ metadata:
   displayName: "Security Engineer Agent"
   categories: ["security", "engineering"]
   tags: ["security-implementation", "authentication", "encryption", "secrets", "WAF", "hardening"]
-  worksWellWithAgents: ["devops-engineer", "embedded-engineer", "infrastructure-engineer", "security-auditor"]
-  worksWellWithSkills: ["threat-model-writing"]
+  worksWellWithAgents: ["api-tester", "devops-engineer", "embedded-engineer", "infrastructure-engineer", "security-auditor"]
+  worksWellWithSkills: ["dependency-audit", "threat-model-writing"]
 ---
 
 # Security Engineer

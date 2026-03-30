@@ -5,11 +5,24 @@ metadata:
   displayName: "Technical SGEO Setup"
   categories: ["engineering", "business"]
   tags: ["SEO", "GEO", "SGEO", "technical-SEO", "crawlability", "Core-Web-Vitals", "AI-visibility", "structured-data", "robots.txt"]
-  worksWellWithAgents: ["seo-specialist", "frontend-engineer", "performance-engineer", "devops-engineer"]
-  worksWellWithSkills: ["technical-seo-audit", "performance-audit", "on-page-sgeo", "content-sgeo", "off-page-sgeo"]
+  worksWellWithAgents: ["devops-engineer", "frontend-engineer", "performance-engineer", "seo-specialist"]
+  worksWellWithSkills: ["content-sgeo", "discovery-gseo", "off-page-sgeo", "on-page-sgeo", "technical-seo-audit"]
 ---
 
 # Technical SGEO Setup
+
+## Before you start
+
+Gather the following from the user. If anything is missing, ask before proceeding:
+
+1. **What is the site URL?** (Production domain, including whether www or non-www is canonical)
+2. **What platform/framework is the site built on?** (Next.js, WordPress, Shopify, custom SPA — determines rendering model, common pitfalls, and available tooling)
+3. **What is the hosting/CDN provider?** (Vercel, Cloudflare, AWS CloudFront, Netlify — CDN configuration directly affects both search and AI crawler access)
+4. **What is the current robots.txt status?** (Existing file contents, or confirmation that none exists)
+5. **Do you have Google Search Console access?** (Required for crawl stats, index coverage, and Core Web Vitals field data)
+6. **Does AI visibility matter for this site?** (If the site sells products, services, or publishes information that users ask AI assistants about, the answer is almost certainly yes)
+7. **Are there known technical issues?** (Recent migration, traffic drop, indexation problems, CWV failures, rendering issues)
+8. **What CMS or deployment workflow do you use?** (Determines how changes to robots.txt, sitemaps, meta tags, and structured data get deployed)
 
 ## Tool discovery
 
@@ -36,19 +49,6 @@ Ask the user directly — do not assume access to any external service.
 4. Fall back gracefully — every check has a free-tier path using WebFetch/WebSearch
 
 Run `scripts/inventory-tools.py` to auto-detect available tools and generate a `tools.json` inventory for other scripts.
-
-## Before you start
-
-Gather the following from the user. If anything is missing, ask before proceeding:
-
-1. **What is the site URL?** (Production domain, including whether www or non-www is canonical)
-2. **What platform/framework is the site built on?** (Next.js, WordPress, Shopify, custom SPA — determines rendering model, common pitfalls, and available tooling)
-3. **What is the hosting/CDN provider?** (Vercel, Cloudflare, AWS CloudFront, Netlify — CDN configuration directly affects both search and AI crawler access)
-4. **What is the current robots.txt status?** (Existing file contents, or confirmation that none exists)
-5. **Do you have Google Search Console access?** (Required for crawl stats, index coverage, and Core Web Vitals field data)
-6. **Does AI visibility matter for this site?** (If the site sells products, services, or publishes information that users ask AI assistants about, the answer is almost certainly yes)
-7. **Are there known technical issues?** (Recent migration, traffic drop, indexation problems, CWV failures, rendering issues)
-8. **What CMS or deployment workflow do you use?** (Determines how changes to robots.txt, sitemaps, meta tags, and structured data get deployed)
 
 ## Technical SGEO implementation template
 

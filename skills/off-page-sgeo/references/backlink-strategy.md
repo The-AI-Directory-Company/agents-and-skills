@@ -111,7 +111,7 @@ Set realistic expectations. These are industry averages for well-crafted, person
 | Guest post outreach | 5-8% | Higher for niche publications, lower for major outlets |
 | Resource page outreach | 8-12% | Works best when your content genuinely fits |
 | Broken link building | 10-15% | You're solving a problem for them — highest conversion |
-| HARO / Connectively | 15-25% | Only if you respond within 2 hours with data |
+| Journalist query platforms (Qwoted, Featured.com, Terkel) | 15-25% | Only if you respond within 2 hours with data. HARO and Connectively were discontinued in 2023-2024. |
 | Skyscraper outreach | 3-5% | Lower conversion but targets high-value links |
 
 ---

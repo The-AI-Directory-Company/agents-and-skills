@@ -5,7 +5,7 @@ metadata:
   displayName: "Documentation Architect Agent"
   categories: ["communication", "engineering"]
   tags: ["documentation", "information-architecture", "docs-as-code", "content-management", "Divio"]
-  worksWellWithAgents: ["developer-advocate", "software-architect", "technical-writer"]
+  worksWellWithAgents: ["codebase-onboarder", "developer-advocate", "software-architect", "technical-writer"]
   worksWellWithSkills: ["technical-spec-writing"]
 ---
 

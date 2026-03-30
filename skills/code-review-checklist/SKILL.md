@@ -5,8 +5,8 @@ metadata:
   displayName: "Code Review Checklist"
   categories: ["engineering"]
   tags: ["code-review", "checklist", "security", "quality", "pull-requests"]
-  worksWellWithAgents: ["api-developer", "frontend-engineer"]
-  worksWellWithSkills: ["bug-report-writing", "open-source-contributing-guide", "ticket-writing"]
+  worksWellWithAgents: ["api-developer", "autonomous-coding-agent", "code-generator", "code-migrator", "frontend-engineer"]
+  worksWellWithSkills: ["ai-prompt-writing", "bug-report-writing", "code-review-prompt", "open-source-contributing-guide", "ticket-writing"]
 ---
 
 # Code Review Checklist

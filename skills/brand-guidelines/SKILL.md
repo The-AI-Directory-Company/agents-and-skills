@@ -5,8 +5,8 @@ metadata:
   displayName: "Brand Guidelines"
   categories: ["design", "communication"]
   tags: ["brand", "guidelines", "identity", "visual-design", "voice-tone", "consistency"]
-  worksWellWithAgents: ["brand-manager", "content-strategist", "copywriter"]
-  worksWellWithSkills: ["component-design-spec", "ux-copy-guidelines"]
+  worksWellWithAgents: ["brand-manager", "content-strategist", "copywriter", "social-media-manager"]
+  worksWellWithSkills: ["component-design-spec", "social-media-content-plan", "ux-copy-guidelines"]
 ---
 
 # Brand Guidelines

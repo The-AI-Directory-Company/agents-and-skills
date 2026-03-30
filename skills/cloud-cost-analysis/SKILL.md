@@ -5,7 +5,7 @@ metadata:
   displayName: "Cloud Cost Analysis"
   categories: ["operations", "engineering"]
   tags: ["cloud", "cost-optimization", "FinOps", "AWS", "infrastructure"]
-  worksWellWithAgents: ["cloud-architect", "devops-engineer"]
+  worksWellWithAgents: ["ci-cd-engineer", "cloud-architect", "devops-engineer"]
   worksWellWithSkills: ["system-design-document"]
 ---
 

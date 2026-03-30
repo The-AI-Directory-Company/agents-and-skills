@@ -5,7 +5,7 @@ metadata:
   displayName: "Test Strategist Agent"
   categories: ["engineering"]
   tags: ["testing", "test-strategy", "quality", "test-architecture", "coverage"]
-  worksWellWithAgents: ["code-reviewer", "debugger", "embedded-engineer", "qa-engineer"]
+  worksWellWithAgents: ["api-tester", "code-reviewer", "debugger", "embedded-engineer", "qa-engineer"]
   worksWellWithSkills: ["bug-report-writing", "test-plan-writing"]
 ---
 

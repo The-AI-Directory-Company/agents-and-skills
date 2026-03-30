@@ -5,7 +5,7 @@ metadata:
   displayName: "Infrastructure Engineer Agent"
   categories: ["engineering", "operations"]
   tags: ["infrastructure", "networking", "DNS", "load-balancing", "CDN", "firewall"]
-  worksWellWithAgents: ["cloud-architect", "devops-engineer", "platform-engineer", "security-auditor", "security-engineer", "sre-engineer"]
+  worksWellWithAgents: ["cloud-architect", "devops-engineer", "platform-engineer", "security-engineer", "sre-engineer"]
   worksWellWithSkills: ["runbook-writing"]
 ---
 

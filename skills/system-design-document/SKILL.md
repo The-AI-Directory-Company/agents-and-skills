@@ -5,8 +5,8 @@ metadata:
   displayName: "System Design Document"
   categories: ["engineering"]
   tags: ["architecture", "system-design", "documentation", "ADR", "technical-specs"]
-  worksWellWithAgents: ["ai-engineer", "cloud-architect", "cto-advisor", "database-architect", "developer-experience-engineer", "embedded-engineer", "enterprise-architect"]
-  worksWellWithSkills: ["api-design-guide", "architecture-decision-record", "cloud-cost-analysis", "data-migration-plan", "integration-specification", "performance-audit", "prd-writing", "technical-spec-writing", "threat-model-writing"]
+  worksWellWithAgents: ["ai-engineer", "cloud-architect", "cto-advisor", "database-architect", "enterprise-architect"]
+  worksWellWithSkills: ["api-design-guide", "architecture-decision-record", "prd-writing", "technical-spec-writing", "threat-model-writing"]
 ---
 
 # System Design Document

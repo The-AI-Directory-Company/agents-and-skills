@@ -5,8 +5,8 @@ metadata:
   displayName: "Pricing Strategist Agent"
   categories: ["business", "product-management"]
   tags: ["pricing", "monetization", "packaging", "SaaS", "revenue", "willingness-to-pay"]
-  worksWellWithAgents: ["financial-analyst", "marketing-strategist", "product-analyst", "vp-product"]
-  worksWellWithSkills: ["experiment-design", "financial-model", "go-to-market-plan", "pricing-analysis"]
+  worksWellWithAgents: ["financial-analyst", "marketing-strategist", "product-analyst", "startup-advisor", "vp-product"]
+  worksWellWithSkills: ["competitive-analysis", "experiment-design", "financial-model", "go-to-market-plan", "pricing-analysis"]
 ---
 
 # Pricing Strategist

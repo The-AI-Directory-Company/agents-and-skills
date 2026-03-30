@@ -18,6 +18,7 @@ AI Agent Usage:
 
 import argparse
 import json
+import socket
 import sys
 import urllib.request
 import urllib.error
@@ -108,7 +109,7 @@ def check_ssl_certificate(domain):
     """Basic SSL certificate check."""
     try:
         context = ssl.create_default_context()
-        with context.wrap_socket(ssl.socket.socket(), server_hostname=domain) as sock:
+        with context.wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM), server_hostname=domain) as sock:
             sock.settimeout(10)
             sock.connect((domain, 443))
             cert = sock.getpeercert()

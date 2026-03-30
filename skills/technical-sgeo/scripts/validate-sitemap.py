@@ -269,7 +269,8 @@ def main():
 
         result = {
             "sitemap_url": sitemap_url,
-            "valid": len(issues) == 0 or all("recommend" in i.lower() or "add" in i.lower() for i in issues),
+            "valid": len(issues) == 0,
+            "warnings": [i for i in issues if "recommend" in i.lower() or "add" in i.lower()],
             "is_index": False,
             "url_count": url_count,
             "urls_with_lastmod": urls_with_lastmod,

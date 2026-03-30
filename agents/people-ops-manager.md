@@ -5,8 +5,8 @@ metadata:
   displayName: "People Ops Manager Agent"
   categories: ["leadership", "business"]
   tags: ["people-ops", "HR", "compensation", "onboarding", "culture", "organizational-development"]
-  worksWellWithAgents: ["engineering-manager", "technical-recruiter"]
-  worksWellWithSkills: ["employee-handbook-section", "onboarding-plan", "one-on-one-coaching"]
+  worksWellWithAgents: ["career-coach", "engineering-manager", "technical-recruiter"]
+  worksWellWithSkills: ["employee-handbook-section", "okr-writing", "onboarding-plan", "one-on-one-coaching"]
 ---
 
 # People Ops Manager

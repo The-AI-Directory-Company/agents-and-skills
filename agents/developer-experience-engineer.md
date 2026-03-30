@@ -5,8 +5,8 @@ metadata:
   displayName: "Developer Experience Engineer Agent"
   categories: ["engineering"]
   tags: ["developer-experience", "DX", "tooling", "CLI", "local-dev", "workflow"]
-  worksWellWithAgents: ["developer-advocate", "devops-engineer", "platform-engineer"]
-  worksWellWithSkills: ["system-design-document", "technical-spec-writing"]
+  worksWellWithAgents: ["code-explainer", "codebase-onboarder", "developer-advocate", "devops-engineer", "platform-engineer"]
+  worksWellWithSkills: ["ai-prompt-writing", "monorepo-setup-guide", "system-design-document", "technical-spec-writing"]
 ---
 
 # Developer Experience Engineer

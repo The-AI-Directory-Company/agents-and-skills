@@ -1,0 +1,109 @@
+name: Feature Request
+description: Suggest a new feature or enhancement
+title: "[Feature]: "
+labels: ["enhancement", "needs triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature. Help us understand the problem before the solution.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: |
+        What problem does this feature solve? Describe the pain point from a user's perspective.
+        Focus on the problem, not the solution.
+      placeholder: "I frequently need to do X, but currently I have to do Y which is slow/error-prone/impossible because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: |
+        Describe your ideal solution. How would this work from the user's perspective?
+        Include CLI commands, API signatures, config examples, or UI mockups if applicable.
+      placeholder: |
+        I would like to be able to run:
+        ```
+        command --new-flag value
+        ```
+        This would produce output like:
+        ```
+        Expected output here
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: |
+        What other approaches did you consider? Why are they insufficient?
+        Include workarounds you currently use.
+      placeholder: |
+        - Alternative A: Does not work because...
+        - Current workaround: I manually do X, but it is error-prone because...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: How large is this change?
+      options:
+        - "Small: Single flag, option, or config change"
+        - "Medium: New command or feature within existing architecture"
+        - "Large: New subsystem, breaking change, or architectural change"
+    validations:
+      required: true
+
+  - type: textarea
+    id: who-benefits
+    attributes:
+      label: Who Benefits
+      description: Who would use this feature? Is it a common need or a niche use case?
+      placeholder: "This would benefit users who... / This is needed for the X workflow..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Any other context: links to similar features in other tools, related issues,
+        screenshots, or design documents.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Willingness to Contribute
+      description: Would you be willing to implement this feature?
+      options:
+        - "Yes, I can submit a PR"
+        - "Yes, with guidance from a maintainer"
+        - "No, I am requesting this feature only"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before Submitting
+      options:
+        - label: I searched existing issues and this feature has not been requested
+          required: true
+        - label: I described the problem, not just the solution
+          required: true
+        - label: I considered and documented alternative approaches
+          required: true

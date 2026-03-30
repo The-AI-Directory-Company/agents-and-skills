@@ -5,7 +5,7 @@ metadata:
   displayName: "Experiment Design"
   categories: ["data", "product-management"]
   tags: ["a-b-testing", "experiments", "hypothesis", "sample-size", "statistics", "product-analytics"]
-  worksWellWithAgents: ["ai-engineer", "data-scientist", "growth-engineer", "pricing-strategist", "product-analyst", "product-operations", "prompt-engineer"]
+  worksWellWithAgents: ["data-scientist", "growth-engineer", "pricing-strategist", "product-analyst", "product-operations"]
   worksWellWithSkills: ["metrics-framework", "ml-model-evaluation", "prd-writing", "pricing-analysis", "prompt-engineering-guide"]
 ---
 

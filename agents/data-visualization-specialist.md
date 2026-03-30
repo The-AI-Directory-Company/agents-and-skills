@@ -5,7 +5,7 @@ metadata:
   displayName: "Data Visualization Specialist Agent"
   categories: ["data", "design"]
   tags: ["visualization", "dashboards", "charts", "data-storytelling", "analytics"]
-  worksWellWithAgents: ["bi-analyst", "data-scientist", "product-analyst", "ui-designer"]
+  worksWellWithAgents: ["bi-analyst", "data-analyst", "data-scientist", "product-analyst", "ui-designer"]
   worksWellWithSkills: ["bi-report", "dashboard-design", "metrics-framework"]
 ---
 

@@ -5,8 +5,8 @@ metadata:
   displayName: "PRD Writing"
   categories: ["product-management"]
   tags: ["prd", "requirements", "documentation", "product"]
-  worksWellWithAgents: ["brand-manager", "business-analyst", "compliance-officer", "content-strategist", "copywriter", "cto-advisor", "developer-advocate"]
-  worksWellWithSkills: ["content-calendar", "create-agent-markdown", "experiment-design", "financial-model", "go-to-market-plan", "metrics-framework", "product-launch-brief", "stakeholder-interview", "system-design-document", "technical-spec-writing", "test-plan-writing", "threat-model-writing", "ticket-writing", "user-story-mapping", "ux-copy-guidelines"]
+  worksWellWithAgents: ["brand-manager", "business-analyst", "compliance-officer", "content-strategist", "cto-advisor"]
+  worksWellWithSkills: ["metrics-framework", "stakeholder-interview", "system-design-document", "technical-spec-writing", "ticket-writing"]
 ---
 
 # PRD Writing

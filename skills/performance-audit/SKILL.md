@@ -6,7 +6,7 @@ metadata:
   categories: ["engineering"]
   tags: ["performance", "profiling", "optimization", "latency", "Core-Web-Vitals"]
   worksWellWithAgents: ["frontend-engineer", "performance-engineer", "sre-engineer"]
-  worksWellWithSkills: ["system-design-document", "technical-seo-audit", "test-plan-writing"]
+  worksWellWithSkills: ["performance-optimization-guide", "system-design-document", "technical-seo-audit", "technical-sgeo", "test-plan-writing"]
 ---
 
 # Performance Audit

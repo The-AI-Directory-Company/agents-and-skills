@@ -6,7 +6,7 @@ metadata:
   categories: ["engineering", "communication"]
   tags: ["open-source", "contributing", "community", "pull-requests", "guidelines"]
   worksWellWithAgents: ["developer-advocate", "open-source-maintainer", "technical-writer"]
-  worksWellWithSkills: ["api-design-guide", "code-review-checklist"]
+  worksWellWithSkills: ["api-design-guide", "code-review-checklist", "git-workflow-guide"]
 ---
 
 # Open Source Contributing Guide

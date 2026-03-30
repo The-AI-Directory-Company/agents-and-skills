@@ -5,8 +5,8 @@ metadata:
   displayName: "Runbook Writing"
   categories: ["operations", "engineering"]
   tags: ["runbooks", "operations", "on-call", "incident-response", "procedures"]
-  worksWellWithAgents: ["devops-engineer", "incident-commander", "infrastructure-engineer", "release-manager", "sre-engineer", "support-engineer"]
-  worksWellWithSkills: ["disaster-recovery-plan", "incident-postmortem", "release-checklist", "ticket-writing"]
+  worksWellWithAgents: ["devops-engineer", "incident-commander", "infrastructure-engineer", "release-manager", "sre-engineer"]
+  worksWellWithSkills: ["automation-workflow-design", "disaster-recovery-plan", "incident-postmortem", "release-checklist", "ticket-writing"]
 ---
 
 # Runbook Writing

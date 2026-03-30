@@ -5,7 +5,7 @@ metadata:
   displayName: "Code Reviewer Agent"
   categories: ["engineering"]
   tags: ["code-review", "security", "best-practices", "linting"]
-  worksWellWithAgents: ["accessibility-auditor", "debugger", "open-source-maintainer", "qa-engineer", "technical-writer", "test-strategist"]
+  worksWellWithAgents: ["debugger", "open-source-maintainer", "qa-engineer", "technical-writer", "test-strategist"]
   worksWellWithSkills: ["accessibility-audit-report", "api-design-guide", "bug-report-writing", "test-plan-writing", "ticket-writing"]
 ---
 

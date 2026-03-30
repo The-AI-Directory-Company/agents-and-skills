@@ -5,8 +5,8 @@ metadata:
   displayName: "Growth Engineer Agent"
   categories: ["engineering", "business"]
   tags: ["growth", "experimentation", "funnels", "conversion", "feature-flags", "activation"]
-  worksWellWithAgents: ["frontend-engineer", "marketing-strategist", "product-analyst", "product-operations"]
-  worksWellWithSkills: ["experiment-design"]
+  worksWellWithAgents: ["email-marketer", "frontend-engineer", "marketing-strategist", "product-analyst", "product-operations"]
+  worksWellWithSkills: ["discovery-gseo", "email-campaign-writing", "experiment-design", "off-page-sgeo"]
 ---
 
 # Growth Engineer

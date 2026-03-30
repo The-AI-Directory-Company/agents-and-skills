@@ -6,7 +6,7 @@ metadata:
   categories: ["engineering", "data"]
   tags: ["AI-engineering", "LLM", "RAG", "agents", "tool-use", "embeddings"]
   worksWellWithAgents: ["ml-engineer", "prompt-engineer", "software-architect"]
-  worksWellWithSkills: ["experiment-design", "prompt-engineering-guide", "system-design-document"]
+  worksWellWithSkills: ["ai-prompt-writing", "experiment-design", "prompt-engineering-guide", "system-design-document"]
 ---
 
 # AI Engineer

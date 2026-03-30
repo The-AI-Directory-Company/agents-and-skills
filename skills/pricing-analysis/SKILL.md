@@ -5,8 +5,8 @@ metadata:
   displayName: "Pricing Analysis"
   categories: ["business", "product-management"]
   tags: ["pricing", "analysis", "competitive", "willingness-to-pay", "revenue-modeling"]
-  worksWellWithAgents: ["pricing-strategist", "vp-product"]
-  worksWellWithSkills: ["experiment-design", "metrics-framework"]
+  worksWellWithAgents: ["pricing-strategist", "startup-advisor", "vp-product"]
+  worksWellWithSkills: ["competitive-analysis", "experiment-design", "metrics-framework", "startup-pitch-deck"]
 ---
 
 # Pricing Analysis
